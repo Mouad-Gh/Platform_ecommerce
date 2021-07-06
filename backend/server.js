@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 
-db.sequelize.sync({force: true}).then((result)=>{
+db.sequelize.sync().then((result)=>{
     console.log(result);
 });
 
@@ -18,4 +18,5 @@ app.get('/',(req,res)=>{
     res.send('tst ');
 })
 app.listen(3000);
+// {force: true} to drop tables and then create them
 */
