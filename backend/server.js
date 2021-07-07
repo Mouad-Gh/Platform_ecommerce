@@ -6,6 +6,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 
+//Routes
+app.use('/api/produits',require('./routes/produits.routes'));
+
 db.sequelize.sync().then((result)=>{
     console.log(result);
 });
