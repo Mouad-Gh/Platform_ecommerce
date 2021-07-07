@@ -1,3 +1,6 @@
+const bcrypt = require("bcrypt");
+const { Sequelize, DataTypes } = require('sequelize');
+
 module.exports = (sequelize,DataTypes)=>{
     const Utilisateur = sequelize.define('Utilisateur',{
         Nom: {
@@ -8,14 +11,26 @@ module.exports = (sequelize,DataTypes)=>{
             type : DataTypes.STRING,
             allowNull: false
         },
-        sexe: {
+        Sexe: {
             type : DataTypes.STRING
         },
-        dateNaissance:{
+        DateNaissance:{
             type: DataTypes.DATE
         },
-        adress: {
+        Adress: {
             type : DataTypes.STRING
+        },
+        Email: DataTypes.STRING,
+        Mdp: DataTypes.STRING
+    }, {
+        freezeTableName: false,
+        instanceMethods: {
+            generateHash(mdp) {
+                return bcrypt.hash(mdp, bcrypt.genSaltSync(8));
+            },
+            validPassword(mdp) {
+                return bcrypt.compare(mdp, this.mdp);
+            }
         }
 
     });
