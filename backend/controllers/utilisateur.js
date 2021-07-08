@@ -7,8 +7,29 @@ exports.addUtilisateur= (req, res)=>{
 };
 
 exports.getUtilisateurs= (req, res)=>{
-    db.Utilisateur.findAll().then((utilisateurs)=>{
-        res.send(utilisateurs);
+    const pageNum=Number.parseInt(req.query.page);
+    const sizeNum=Number.parseInt(req.query.size);
+    let page=0;
+    if(!Number.isNaN(pageNum)&&pageNum>0){
+        page=pageNum;
+    }
+    let size=8;
+    if(!Number.isNaN(sizeNum) && sizeNum>0 && sizeNum<16){
+            size=sizeNum;
+    }
+
+
+    db.Utilisateur.findAndCountAll({
+        limit: size,
+        offset: page*size
+    }).then((utilisateurs)=>{
+        res.send({
+            contenu: utilisateurs.rows,
+            totalPages: Math.ceil(utilisateurs.count / size) 
+        });
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).send('try again later');
     });
 };
 
