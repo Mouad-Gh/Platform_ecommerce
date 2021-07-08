@@ -11,5 +11,14 @@ module.exports= (sequelize,DataTypes)=>{
           }
     });
    // Produit_image.belongsTo(Produit);
+
+    Produit_image.associate= models =>{
+      
+        //chaque Produit_image appartient a un Produit
+        Produit_image.belongsTo(models.Produit);
+    
+    };
+
+
     return Produit_image;
 };

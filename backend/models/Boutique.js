@@ -7,5 +7,17 @@ module.exports= (sequelize,DataTypes)=>{
           }
     });
     //Boutique.belongsTo(Utilisateur);
+
+    Boutique.associate= models =>{
+      
+        //chaque Boutique contient plusieurs Produits
+        Boutique.hasMany(models.Produit,{
+            onDelete: "cascade"
+        });
+        //chaque Boutique appartient a un Vendeur
+        Boutique.belongsTo(models.Vendeur);
+    
+      };
+
     return Boutique;
 };

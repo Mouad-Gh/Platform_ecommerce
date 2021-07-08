@@ -34,5 +34,17 @@ module.exports = (sequelize,DataTypes)=>{
         }
 
     });
+    Utilisateur.associate= models =>{
+
+        Utilisateur.hasOne(models.Acheteur,{
+            onDelete: "cascade"
+        });
+
+        Utilisateur.hasOne(models.Admin,{
+            onDelete: "cascade"
+        });
+    };
+
+
     return Utilisateur;
 };

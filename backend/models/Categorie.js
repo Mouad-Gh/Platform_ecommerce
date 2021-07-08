@@ -7,5 +7,15 @@ module.exports= (sequelize,DataTypes)=>{
           }
     });
     //Categorie.belongsTo(Utilisateur);
+
+    Categorie.associate= models =>{
+      
+        //chaque Categorie a plusieurs Produits
+        Categorie.hasMany(models.Produit,{
+            onDelete: "cascade"
+        });
+    
+    };
+    
     return Categorie;
 };

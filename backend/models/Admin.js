@@ -4,5 +4,12 @@ module.exports= (sequelize,DataTypes)=>{
 
     });
     
+    Admin.associate= models =>{
+
+        //Admin est un Utilisateur
+        Admin.belongsTo(models.Utilisateur);
+        
+    };
+
     return Admin;
 };

@@ -11,5 +11,15 @@ module.exports= (sequelize,DataTypes)=>{
           }
     });
     //Marque.belongsTo(Utilisateur);
+
+    Marque.associate= models =>{
+      
+      //chaque Marque a plusieurs Produits
+      Marque.hasMany(models.Produit,{
+          onDelete: "cascade"
+      });
+  
+    };
+
     return Marque;
 };
