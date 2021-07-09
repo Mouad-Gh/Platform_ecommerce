@@ -2,9 +2,14 @@ const db=require("../models");
 const utilisateur=require("../controllers/utilisateur");
 
 exports.addAdmin = (req,res,next)=>{
-    db.Admin.create(req.body)
-    .then(()=>{
-        res.send({message:'Admin ajouté avec succès!'});
+    db.Utilisateur.create(req.body)
+    .then((Utilisateur)=>{
+        db.Admin.create({UtilisateurId:Utilisateur.id}).then(()=>{
+            res.send('Admin ajouté avec succès!');
+        })
+        .catch((err)=>{
+            next(err);
+        });
     })
     .catch((err)=>{
         next(err);
@@ -17,6 +22,8 @@ exports.getAdminsByPage = (req,res,next) => {
 
     db.Admin.findAll(
         {
+            include:['Utilisateur'],
+            attributes:['id'],
             offset: parseInt((page -1) * page_size),
             limit: parseInt(page_size),
         }
@@ -29,7 +36,10 @@ exports.getAdminsByPage = (req,res,next) => {
 }
 
 exports.getAdmins = (req,res,next) => {
-    db.Admin.findAll().then((Admins)=>{
+    db.Admin.findAll({
+        include:['Utilisateur'],
+        attributes:['id']
+    }).then((Admins)=>{
         res.send(Admins);
     })
     .catch((err)=>{
@@ -38,9 +48,11 @@ exports.getAdmins = (req,res,next) => {
 }
 
 exports.getAdmin = (req,res,next) =>{
-    db.Admin.findOne({where:{id:req.params.id}})
+    db.Admin.findByPk(req.params.id)
     .then(Admin => {
-        res.send(Admin);
+        Admin.getUtilisateur().then((utilisateur)=>{
+            res.send(utilisateur);
+        });
     })
     .catch(err => {
         next(err);
@@ -48,18 +60,25 @@ exports.getAdmin = (req,res,next) =>{
 }
 
 exports.UpdateAdmin = (req,res,next)=>{
-    db.Admin.findByPk(req.params.id).then((admin)=>{
+    db.Admin.findByPk(req.params.id)
+    .then((admin)=>{
         req.params.id=admin.UtilisateurId;
         utilisateur.updateUtilisateur(req,res);
-    });
-}
-
-exports.deleteAdmin = (req,res,next)=>{
-    db.Admin.destroy({where : {id: req.params.id}})
-    .then(()=>{
-        res.send({message:'Admin est supprimé avec succès'});
     })
     .catch(err => {
         next(err);
     })
+}
+
+exports.deleteAdmin = (req,res,next)=>{
+    db.Admin.findByPk(req.params.id).then((admin)=>{
+        db.Admin.destroy({where : {id: req.params.id}})
+        .then(()=>{
+            req.params.id=admin.UtilisateurId;
+            utilisateur.deleteUtilisateur(req,res);
+        })
+        .catch(err => {
+            next(err);
+        });
+    });
 }
