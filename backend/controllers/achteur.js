@@ -1,4 +1,5 @@
 const db=require("../models");
+const utilisateur=require("../controllers/utilisateur");
 
 exports.addAchteur = (req,res,next)=>{
     db.Acheteur.create(req.body)
@@ -47,13 +48,10 @@ exports.getAcheteur = (req,res,next) =>{
 }
 
 exports.UpdateAchteur = (req,res,next)=>{
-    db.Acheteur.update({ UtilisateurId:req.body.UtilisateurId },{ where:{id:req.params.id}})
-    .then((achteur)=>{
-        res.send({message:'Acheteur est modifié avec succès'});
-    })
-    .catch(err => {
-        next(err);
-    })
+    db.Acheteur.findByPk(req.params.id).then((acheteur)=>{
+        req.params.id=acheteur.UtilisateurId;
+        utilisateur.updateUtilisateur(req,res);
+    });
 }
 
 exports.deleteAchteur = (req,res,next)=>{

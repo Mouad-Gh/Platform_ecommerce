@@ -1,4 +1,5 @@
 const db=require("../models");
+const utilisateur=require("../controllers/utilisateur");
 
 exports.addAdmin = (req,res,next)=>{
     db.Admin.create(req.body)
@@ -47,13 +48,10 @@ exports.getAdmin = (req,res,next) =>{
 }
 
 exports.UpdateAdmin = (req,res,next)=>{
-    db.Admin.update({ UtilisateurId:req.body.UtilisateurId },{ where:{id:req.params.id}})
-    .then((Admin)=>{
-        res.send({message:'Admin est modifié avec succès'});
-    })
-    .catch(err => {
-        next(err);
-    })
+    db.Admin.findByPk(req.params.id).then((admin)=>{
+        req.params.id=admin.UtilisateurId;
+        utilisateur.updateUtilisateur(req,res);
+    });
 }
 
 exports.deleteAdmin = (req,res,next)=>{
