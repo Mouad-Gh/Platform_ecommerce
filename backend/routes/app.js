@@ -27,6 +27,7 @@ router.delete("/marque/:id",marque.deleteMarque);
 //Categorie
 router.get("/categorie/tous",categorie.getCategories);
 router.get("/categorie/tous/:page(\\d+)/:page_size(\\d+)",categorie.getCategoriesByPage);
+router.get("/categorie/:nom/meilleurProduits",categorie.getCategorieMeilleursProduits);
 router.get("/categorie/:id",categorie.getCategorie);
 router.post("/categorie/ajouter",categorie.addCategorie);
 router.put("/categorie/:id",categorie.UpdateCategorie);

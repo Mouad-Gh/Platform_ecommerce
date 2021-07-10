@@ -65,3 +65,26 @@ exports.deleteCategorie = (req,res,next)=>{
         next(err);
     })
 }
+
+
+//obtient les meilleurs produits dans une catégorie spécifique 
+exports.getCategorieMeilleursProduits = async (req,res,next) => {
+    const cat = await db.Categorie.findOne({
+        where:{
+            nom_categorie:req.params.nom
+        }
+    });
+    if(!cat){
+        return res.send('categorie n\' exist pas');
+    }
+    const produits = await cat.getProduits({
+        include:{
+            model:db.Produit_image,
+            where:{
+                estPrincipale:1
+            }
+        },
+        limit:3
+    });
+    res.send(produits);
+}
