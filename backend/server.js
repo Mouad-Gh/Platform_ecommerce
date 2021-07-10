@@ -20,6 +20,11 @@ db.sequelize.sync({force: true}).then((result)=>{
 });
 
 app.use("/api",routes);
+//error handling
+app.use((err,req,res,next)=>{
+    const status=err.status||500;
+    return res.status(status).send({message: err.message});
+});
 app.listen(PORT,()=>{
     console.log(`listening on : http://localhost:${PORT}`);
 });

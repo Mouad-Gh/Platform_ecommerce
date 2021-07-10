@@ -11,7 +11,7 @@ exports.addProduit= (req,res)=>{
 exports.getProduits= (req,res)=>{
     db.Produit.findAll({
         include: {
-          model: Produit_images,
+          model: db.Produit_images,
           required: true
         }
       }).then((produits)=>{
