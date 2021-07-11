@@ -1,11 +1,11 @@
 import React from 'react';
-import Glissiere from '../../commponent/Accueil/Glissiere';
-import CategorieBars from '../../commponent/Accueil/CategorieBars';
-import ProduitsParCategorie from '../../commponent/Accueil/ProduitsParCategorie';
+import Glissiere from '../../component/Accueil/Glissiere';
+import CategorieBars from '../../component/Accueil/CategorieBars';
+import ProduitsParCategorie from '../../component/Accueil/ProduitsParCategorie';
 import useFetch from '../../helpers/useFetch';
 import ScriptTag from 'react-script-tag';
 const Accueil = ()=>{
-    const {data:categories} = useFetch('http://localhost:3000/api/categorie/tous/1/2');
+    const {data:categories} = useFetch('http://localhost:3000/api/categorie/tous');
     return(
         <div className="Header">
             <Glissiere />

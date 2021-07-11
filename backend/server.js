@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended : true}));
 //to make express aware of bodies
 app.use(express.json());
 
-db.sequelize.sync({force: true}).then((result)=>{
+db.sequelize.sync().then((result)=>{
     //  console.log(result);
 }).then((result)=>{
      db.Utilisateur.create({Nom: "Ghouichat", Prenom: "Mouad", Email:"mouad@gmail.com", Mdp:"12345"});

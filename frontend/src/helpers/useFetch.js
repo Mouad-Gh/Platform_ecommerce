@@ -5,6 +5,7 @@ const useFetch = (url) =>{
     const [data, setData] = useState([]);
     useEffect(()=>{
         const abortCont = new AbortController();
+        
 
         fetch(url,{signal:abortCont.signal})
         .then(res =>{
@@ -12,6 +13,7 @@ const useFetch = (url) =>{
         })
         .then((data)=>{
             setData(data);
+            console.log(data);
         })
         .catch((err)=>{
             if(err.name==='AbortError'){
@@ -22,7 +24,7 @@ const useFetch = (url) =>{
         })
 
         return ()=>abortCont.abort();
-    },[]);
+    },[url]);
 
 
 
