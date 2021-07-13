@@ -33,6 +33,7 @@ router.get("/categorie/:id",categorie.getCategorie);
 router.post("/categorie/ajouter",categorie.addCategorie);
 router.put("/categorie/:id",categorie.UpdateCategorie);
 router.delete("/categorie/:id",categorie.deleteCategorie);
+router.get("/categorie/:nom/produits/:page(\\d+)/:page_size(\\d+)",categorie.getCategorieProduits);
 
 //Produit
 router.post("/produit/ajouter",produit.addProduit);
@@ -42,6 +43,10 @@ router.get("/produit/:id",produit.getProduit);
 router.get("/produit/categorie/:id",produit.getProduitsCategorie);
 router.put("/produit/:id",produit.updateProduit);
 router.delete("/produit/:id",produit.deleteProduit);
+//pour le pagination
+router.get("/produits/:page(\\d+)/:page_size(\\d+)",produit.getProduitsparPage);
+//pour le filtrage
+router.get("/produit/filter/:page(\\d+)/:page_size(\\d+)",produit.produitsFilter);
 
 //Produit_images
 router.post("/produit_image/ajouter",produit_image.addProduit_image);

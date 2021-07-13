@@ -88,3 +88,38 @@ exports.getCategorieMeilleursProduits = async (req,res,next) => {
     });
     res.send(produits);
 }
+
+
+//obtient les produits dans une catégorie spécifique 
+exports.getCategorieProduits = async (req,res,next) => {
+    const page= req.params.page;
+    const page_size = req.params.page_size;
+
+    const cat = await db.Categorie.findOne({
+        where:{
+            nom_categorie:req.params.nom
+        }
+    });
+    if(!cat){
+        return res.send('categorie n\' exist pas');
+    }
+    const produits = await cat.getProduits({
+        include:[{
+            model:db.Produit_image,
+            where:{
+                estPrincipale:1
+            }
+        },{
+            model:db.Categorie
+        }],
+        offset: parseInt((page -1) * page_size),
+        limit: parseInt(page_size),
+    });
+
+    const NombreDeProduits = await db.Produit.count({
+        where:{
+            CategorieId:cat.id
+        }
+    });
+    res.send({produits,NombreDeProduits});
+}
