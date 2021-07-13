@@ -1,6 +1,7 @@
 const express = require("express");
 const app=express();
 const db=require("./models");
+const cors=require("cors");
 
 //const Utilisateur=require("./models/Utilisateur");
 const routes=require("./routes/app");
@@ -9,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({extended : true}));
 //to make express aware of bodies
 app.use(express.json());
+//
+app.use(cors());
 
 db.sequelize.sync().then((result)=>{
     //  console.log(result);

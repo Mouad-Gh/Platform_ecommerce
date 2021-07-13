@@ -26,9 +26,23 @@ exports.getProduit= (req,res)=>{
     db.Produit.findOne({
         where : {id: req.params.id},
         include: {
-          model: Produit_images,
-          required: true
+          /* model: Produit_images,
+          required: true */
+          all:true
         }
+      }).then((produits)=>{
+        res.send(produits);
+    });
+};
+
+//pour rechercher des produits d'une categorie
+exports.getProduitsCategorie=(req,res,next)=>{
+    db.Produit.findAll({
+        where: {CategorieId: req.params.id },
+        include: {
+            all: true
+        },
+        limit: 4
       }).then((produits)=>{
         res.send(produits);
     });

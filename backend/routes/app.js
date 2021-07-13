@@ -10,6 +10,7 @@ const acheteur=require("../controllers/achteur");
 const admin=require("../controllers/admin");
 const boutique=require("../controllers/boutique");
 const commande=require("../controllers/commande");
+const produit_specification=require('../controllers/produit_specification');
 
 //Utilisateur
 router.post("/utilisateur/ajouter",utilisateur.addUtilisateur);
@@ -37,8 +38,22 @@ router.delete("/categorie/:id",categorie.deleteCategorie);
 router.post("/produit/ajouter",produit.addProduit);
 router.get("/produit/tous",produit.getProduits);
 router.get("/produit/:id",produit.getProduit);
+  //pour les produits d'une categorie 
+router.get("/produit/categorie/:id",produit.getProduitsCategorie);
 router.put("/produit/:id",produit.updateProduit);
 router.delete("/produit/:id",produit.deleteProduit);
+
+//Produit_images
+router.post("/produit_image/ajouter",produit_image.addProduit_image);
+router.delete("/produit_image/:id",produit_image.deleteProduit_image);
+
+//Produit_specification
+router.post("/produit_specification/ajouter",produit_specification.addProduit_specification);
+router.get("/produit_specification/tous",produit_specification.getProduit_specifications);
+router.get("/produit_specification/:id",produit_specification.getProduit_specification);
+router.put("/produit_specification/:id",produit_specification.updateProduit_specification);
+router.delete("/produit_specification/:id",produit_specification.deleteProduit_specification);
+
 //Vendeur
 router.post("/vendeur/ajouter",vendeur.addVendeur);
 router.get("/vendeur/tous",vendeur.getVendeurs);
