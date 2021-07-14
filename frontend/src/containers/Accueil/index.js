@@ -4,7 +4,7 @@ import CategorieBars from '../../component/Accueil/CategorieBars';
 import ProduitsParCategorie from '../../component/Accueil/ProduitsParCategorie';
 import useFetch from '../../helpers/useFetch';
 import ScriptTag from 'react-script-tag';
-const Accueil = ()=>{
+const Accueil = (props)=>{
     const {data:categories} = useFetch('http://localhost:3000/api/categorie/tous');
     return(
         <div className="Header">
@@ -19,7 +19,7 @@ const Accueil = ()=>{
             
             {categories.length===0 && <h3 className="align-center">Il n'y a pas de catégories</h3>}
             {categories.map(categorie=>
-                <ProduitsParCategorie key={categorie.id} cat={categorie.nom_categorie} />
+                <ProduitsParCategorie key={categorie.id} cat={categorie.nom_categorie} handleAjouterPanier={props.handleAjouterPanier}/>
             )}
             <ScriptTag  type="text/javascript" src="/assets/js/core.js" />
             <ScriptTag  type="text/javascript" src="/assets/js/carousel.js" />

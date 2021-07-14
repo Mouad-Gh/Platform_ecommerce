@@ -4,7 +4,7 @@ import Filters from '../../component/Store/Filters';
 import Tags from '../../component/Store/Tags';
 import useFetch from '../../helpers/useFetch';
 import ScriptTag from 'react-script-tag';
-const Store = () => {
+const Store = (props) => {
     const [produits,setProduits] = useState([]);
     const [nombreDePage,setNombreDePage] = useState(1);
     const {data:categories} = useFetch('http://localhost:3000/api/categorie/tous/1/3');
@@ -115,7 +115,13 @@ const Store = () => {
             <div className="container">
                 <div className="row">
                     <Filters marques={marques} handleRechercher={handleRechercher} />
-                    {produits.length!=0 && <Produits data={produits} nombreDePage={nombreDePage} handlePagination={handlePagination} />}
+                    {produits.length!=0 && 
+                        <Produits data={produits} 
+                        nombreDePage={nombreDePage}
+                        handlePagination={handlePagination}
+                        handleAjouterPanier={props.handleAjouterPanier}
+                 />
+                    }
                 </div>
             </div>
             <ScriptTag  type="text/javascript" src="/assets/js/core.js" />

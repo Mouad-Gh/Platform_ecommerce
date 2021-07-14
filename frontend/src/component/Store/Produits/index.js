@@ -9,7 +9,7 @@ const Produits = (props) =>{
             <div className="products">
                 <div className="row">
                     {props.data.map(produit=>
-                        <Produit key={produit.id} data={produit}  />
+                       <Produit key={produit.id} data={produit} handleAjouterPanier={props.handleAjouterPanier}  />
                     )}
                 </div>
             </div>
