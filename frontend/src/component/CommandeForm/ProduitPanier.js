@@ -1,11 +1,13 @@
+import {Link} from 'react-router-dom';
+
 const ProduitPanier = (props) => {
-    const {nom,img,PU,nom_categorie}=props.produit;
+    const {nom,img,PU,nom_categorie,id}=props.produit;
     return ( 
         <div className="media">
                         <div className="media-left">
-                            <a href="#">
+                            <Link to={"/Produit/"+id}>
                                 <img className="media-object" src={img} alt="iPad Air" />
-                            </a>
+                            </Link>
                         </div>
                         <div className="media-body">
                             <h2 className="h4 media-heading">{nom}</h2>
@@ -24,7 +26,7 @@ const ProduitPanier = (props) => {
                             </div>
                             {/* <!-- /input-group --> */}
 
-                            <a href="#remove"> <i className="ion-trash-b"></i> Remove </a>
+                            <button onClick={()=>{props.handleSupprimerPanier(id)}}> <i className="ion-trash-b"></i> Remove </button>
                         </div>
                     </div>
      );

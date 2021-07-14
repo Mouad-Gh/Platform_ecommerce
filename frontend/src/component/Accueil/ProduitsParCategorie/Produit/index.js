@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 const Produit = (props) => {
     console.log(props);
     return (
@@ -12,7 +13,7 @@ const Produit = (props) => {
                     <h2 className="h3">{props.data.nom}</h2>
                     <hr className="offset-sm" />
 
-                    <button className="btn btn-link"> <i className="ion-android-open"></i> Details</button>
+                    <button className="btn btn-link"><Link to={'Produit/'+props.data.id}><i className="ion-android-open"></i>  Details</Link></button>
                     <button className="btn btn-primary btn-sm rounded"
                         onClick={() => {
                             props.handleAjouterPanier({

@@ -14,7 +14,7 @@ const CommandePanier = () => {
                     
 
                     {produits && produits.map((produit)=>{
-                        return (<ProduitPanier key={produit.id} produit={produit} />);
+                        return (<ProduitPanier  key={produit.id} produit={produit} />);
                     })}
 
                     

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ScriptTag from 'react-script-tag';
+import { Link } from "react-router-dom";
 const Panier = (props) => {
     console.log(props.data);
     return (
@@ -22,6 +23,9 @@ const Panier = (props) => {
                     {props.data && props.data.map(produit =>
                         <div className="media" key={produit.nom}>
                             <div className="media-left">
+                                {/* <Link to={"/Produit/"+produit.id}>
+                                <img className="media-object" src={produit.img} alt="HP Chromebook 11" />
+                            </Link> */}
                                 <a href="#">
                                     <img className="media-object" src={produit.img} alt="HP Chromebook 11" />
                                 </a>
@@ -61,7 +65,7 @@ const Panier = (props) => {
                 <div className="checkout container-fluid">
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 align-right">
-                            <a className="btn btn-primary" href="../checkout/"> Commander </a>
+                            <Link className="btn btn-primary" to={'/Commande'}> Commander </Link>
                         </div>
                     </div>
                 </div>

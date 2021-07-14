@@ -85,14 +85,15 @@ function App() {
           />
           <Accueil handleAjouterPanier={handleAjouterPanier} />
         </Route>
-        <Route path="/Store" >
+        <Route  path="/Store" >
           <Panier data={produits}
             handleSupprimerPanier={handleSupprimerPanier}
             handleModfierPanier={handleModfierPanier}
           />
           <Store handleAjouterPanier={handleAjouterPanier} />
         </Route>
-        <Route path="/Commande" > <Commande /> </Route>
+        <Route path="/Commande" > <Commande handleSupprimerPanier={handleSupprimerPanier} /> </Route>
+        <Route path="/Produit/:id" > <Produit /> </Route>
       </Switch>
 
     </Layout>

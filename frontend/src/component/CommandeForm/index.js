@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CommandePanier from "./CommandePanier";
-const CommandeForm = () => {
+const CommandeForm = (props) => {
 
     const [adress, setAdress] = useState('');
     const [total, setTotal] = useState();
@@ -21,7 +21,7 @@ const CommandeForm = () => {
         
         setTotal(to);
         setProduits(produits);
-        //console.log(produits);
+        console.log(produits);
 
 
       }, []);
@@ -86,7 +86,7 @@ const CommandeForm = () => {
                     </div>
                     
                     {/************* */}
-                    <CommandePanier />
+                    <CommandePanier handleSupprimerPanier={props.handleSupprimerPanier} />
                     <hr className="offset-lg hidden-xs" />
 
                         <div className="col-sm-12 white">

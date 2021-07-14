@@ -3,7 +3,7 @@ import CommandePanier from "../../component/CommandeForm/CommandePanier";
 import ScriptTag from 'react-script-tag';
 
 
-const Commande = () => {
+const Commande = (props) => {
     return ( 
 
         <div>
@@ -19,7 +19,7 @@ const Commande = () => {
             <hr className="offset-md" />
 
             {/* body*/}
-            <CommandeForm />
+            <CommandeForm handleSupprimerPanier={props.handleSupprimerPanier} />
 
             <hr className="offset-lg" />
             <hr className="offset-sm" />
