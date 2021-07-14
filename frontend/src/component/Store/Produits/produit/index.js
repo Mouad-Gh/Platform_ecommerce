@@ -11,7 +11,19 @@ const produit = (props) => {
                     <label>{props.data.Categorie.nom_categorie}</label>
 
                     <button className="btn btn-link"> <i className="ion-android-open"></i> Détails</button>
-                    <button className="btn btn-primary btn-sm rounded"> <i className="ion-bag"></i> Panier</button>
+                    <button className="btn btn-primary btn-sm rounded"
+                        onClick={() => {
+                            props.handleAjouterPanier({
+                                id:props.data.id,
+                                nom: props.data.nom,
+                                nom_categorie: props.data.Categorie.nom_categorie,
+                                PU: props.data.PU,
+                                qte: 1,
+                                img:props.data.Produit_images[0]?.chemin_fichier
+                            })
+                        }}>
+                        <i className="ion-bag"></i> Panier
+                    </button>
                 </div>
             </div>
         </div>
