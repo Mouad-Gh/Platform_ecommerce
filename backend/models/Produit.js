@@ -33,9 +33,9 @@ module.exports= (sequelize,DataTypes)=>{
       //chaque Produit appartient à une Boutique
       Produit.belongsTo(models.Boutique);
       //chaque Produit peut être dans plusieurs Commandes
-      Produit.belongsToMany(models.Commande, { through: 'ligne_commande' });
+      Produit.belongsToMany(models.Commande, { through: models.Ligne_commande,onDelete: "cascade" });
       //chaque Produit peut être adorer par plusieurs Acheteurs
-      Produit.belongsToMany(models.Acheteur, { through: 'produit_souhaite' });
+      Produit.belongsToMany(models.Acheteur, { through: 'produit_souhaite',onDelete: "cascade" });
       //chaque Produit a plusieurs Specifications
       Produit.hasMany(models.Produit_specification,{
         onDelete: "cascade"

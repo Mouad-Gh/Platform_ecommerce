@@ -3,11 +3,13 @@ const { Op } = require("sequelize");
 const Produit_images = require("../models/Produit_images");
 const produit_image = require("./produit_image");
 
-exports.addProduit= (req,res)=>{
+exports.addProduit= (req,res,next)=>{
     db.Produit.create(req.body).then((produit)=>{
         req.body.ProduitId=produit.id;
         produit_image.addProduit_image(req,res);
         res.send('succes');
+    }).catch(err => {
+        next(err);
     });
 };
 

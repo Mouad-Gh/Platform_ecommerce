@@ -2,7 +2,16 @@ const db=require("../models");
 
 exports.addCommande = (req,res,next)=>{
     db.Commande.create(req.body)
-    .then(()=>{
+    .then((commande)=>{
+        req.body.produits.forEach(produit=>{
+            db.Produit.findByPk(produit.id).then(prod=>{
+                commande.addProduit(prod,{through: { quantite: produit.qte }}).then(()=>{
+                    prod.decrement({'quantite_dispo' : produit.qte});
+                });
+
+            });
+        });
+        
         res.send({message:'Commande ajouté avec succès!'});
     })
     .catch((err)=>{
@@ -28,7 +37,9 @@ exports.getCommandesByPage = (req,res,next) => {
 }
 
 exports.getCommandes = (req,res,next) => {
-    db.Commande.findAll().then((Commandes)=>{
+    db.Commande.findAll({include: {
+        all: true}
+      }).then((Commandes)=>{
         res.send(Commandes);
     })
     .catch((err)=>{

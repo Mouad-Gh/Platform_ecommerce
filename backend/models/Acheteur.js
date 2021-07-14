@@ -20,7 +20,7 @@ module.exports= (sequelize,DataTypes)=>{
         });
 
         //chaque Acheteur peut adorer plusieurs Produits
-        Acheteur.belongsToMany(models.Produit, { through: 'produit_souhaite' });
+        Acheteur.belongsToMany(models.Produit, { through: 'produit_souhaite',onDelete: "cascade" });
         //chaque Achteur peut effectuer plusieurs Commandes
         models.Acheteur.hasMany(models.Commande,{
             onDelete: "cascade"

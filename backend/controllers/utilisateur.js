@@ -1,8 +1,10 @@
 const db=require("../models");
 
-exports.addUtilisateur= (req, res)=>{
+exports.addUtilisateur= (req, res,next)=>{
     db.Utilisateur.create(req.body).then(()=>{
         res.send('Utilisateur ajouté avec succès!');
+    }).catch(err => {
+        console.log(err);
     });
 };
 

@@ -3,6 +3,7 @@ import Layout from './containers/Layout';
 import Accueil from './containers/Accueil';
 import Store from './containers/Store';
 import Produit from './containers/Produit';
+import Commande from './containers/Commande';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/Accueil"><Accueil /></Route>
           <Route path="/Store"><Store /></Route>
           <Route path="/Produit/:id" > <Produit /> </Route>
+          <Route path="/Commande" > <Commande /> </Route>
         </Switch>
         
       </Layout>
