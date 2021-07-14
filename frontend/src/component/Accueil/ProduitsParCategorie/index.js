@@ -3,6 +3,7 @@ import Produit from './Produit';
 import useFetch from '../../../helpers/useFetch';
 const ProduitsParCategorie = (props) => {
     const {data:produits} = useFetch('http://localhost:3000/api/categorie/'+props.cat+'/meilleurProduits');
+    console.log('****',produits);
     return (
         <section className="products">
             <div className="container">

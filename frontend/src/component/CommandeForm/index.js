@@ -3,11 +3,13 @@ import CommandePanier from "./CommandePanier";
 const CommandeForm = () => {
 
     const [adress, setAdress] = useState('');
+    const [total, setTotal] = useState();
     
     const ajouterSubmit=(e)=>{
         e.preventDefault();
-        const commande={adress};
+        const commande={adress,total,AcheteurId:1};
         console.log(commande);
+        
     }
     return (
         <div className="container checkout">

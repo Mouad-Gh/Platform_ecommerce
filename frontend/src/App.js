@@ -17,7 +17,7 @@ function App() {
     const jsonProduits = localStorage.getItem("panier");
     const localProduits = JSON.parse(jsonProduits);
     setProduits(localProduits);
-  }, []);
+  }, [produits]);
 
   //ajouter au panier
   const handleAjouterPanier = (produit) => {
