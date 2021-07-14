@@ -78,12 +78,14 @@ exports.getCategorieMeilleursProduits = async (req,res,next) => {
         return res.send('categorie n\' exist pas');
     }
     const produits = await cat.getProduits({
-        include:{
+        include:[{
             model:db.Produit_image,
             where:{
                 estPrincipale:1
             }
-        },
+        },{
+            model:db.Categorie
+        }],
         limit:3
     });
     res.send(produits);
