@@ -1,15 +1,15 @@
 const ProduitPanier = (props) => {
-    const {nom,Produit_images,PU,Categorie}=props.produit;
+    const {nom,img,PU,nom_categorie}=props.produit;
     return ( 
         <div className="media">
                         <div className="media-left">
                             <a href="#">
-                                <img className="media-object" src={Produit_images[0].chemin_fichier} alt="iPad Air" />
+                                <img className="media-object" src={img} alt="iPad Air" />
                             </a>
                         </div>
                         <div className="media-body">
                             <h2 className="h4 media-heading">{nom}</h2>
-                            <label>{Categorie.nom_categorie} </label>
+                            <label>{nom_categorie} </label>
                             <p className="price">${PU}</p>
                         </div>
                         <div className="controls">
@@ -17,7 +17,7 @@ const ProduitPanier = (props) => {
                                 <span className="input-group-btn">
                                     <button className="btn btn-default btn-sm" type="button" data-action="minus"><i className="ion-minus-round"></i></button>
                                 </span>
-                                <input type="text" className="form-control input-sm" placeholder="Qty" value="1" readonly="" />
+                                <input type="text" className="form-control input-sm" placeholder="Qty" defaultValue="1" readOnly="" />
                                 <span className="input-group-btn">
                                     <button className="btn btn-default btn-sm" type="button" data-action="plus"><i className="ion-plus-round"></i></button>
                                 </span>

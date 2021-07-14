@@ -1,14 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommandePanier from "./CommandePanier";
 const CommandeForm = () => {
 
     const [adress, setAdress] = useState('');
     const [total, setTotal] = useState();
-    
+    const [produits, setProduits] = useState([])
+    useEffect(() => {
+        const jsonProduits = localStorage.getItem("panier");
+        const ProduitsPanier = JSON.parse(jsonProduits);
+        let to=0;
+        let produits=[];
+        ProduitsPanier.forEach(produit=>{
+            //console.log(produit.PU);
+            to+=produit.PU;
+            let prod={};
+            prod.id=produit.id;
+            prod.qte=produit.qte;
+            produits.push(prod);
+        });
+        
+        setTotal(to);
+        setProduits(produits);
+        //console.log(produits);
+
+
+      }, []);
     const ajouterSubmit=(e)=>{
         e.preventDefault();
-        const commande={adress,total,AcheteurId:1};
-        console.log(commande);
+        const commande={adress,total,AcheteurId:1,produits:produits};
+        console.log('here', JSON.stringify(commande));
+        fetch('http://localhost:3000/api/commande/ajouter',{
+            method: 'POST',
+            headers: {"Content-Type": "application/json" },
+            body: JSON.stringify(commande)
+        }).then(()=>{
+            console.log('added');
+        }).catch(err=>console.log(err));    
         
     }
     return (
@@ -33,8 +60,8 @@ const CommandeForm = () => {
                         <div className="row group">
                             <div className="col-sm-4"><h2 className="h4">Paiement</h2></div>
                             <div className="col-sm-8">
-                                <div className="group-select justify" tabindex='1'>
-                                    <input className="form-control select" id="paiement" name="paiement" value="Cash on Delivery" placeholder="" required="" />
+                                <div className="group-select justify" tabIndex='1'>
+                                    <input className="form-control select" id="paiement" name="paiement" defaultValue="Cash on Delivery" placeholder="" required="" />
 
                                     <ul className="dropdown">
                                         <li data-value="Cash on Delivery">Paiement à la livraison</li>
@@ -49,7 +76,9 @@ const CommandeForm = () => {
 
                         <div className="row group">
                             <div className="col-sm-4"><h2 className="h4">Code promo</h2></div>
-                            <div className="col-sm-8"> <input type="text" className="form-control" name="promo" value="" required="" placeholder="" /></div>
+                            <div className="col-sm-8"> 
+                                <input type="text" className="form-control" name="promo" required="" placeholder="" />
+                            </div>
                         </div>
 
                         <hr className="offset-lg visible-xs visible-sm" />
@@ -65,7 +94,7 @@ const CommandeForm = () => {
                             <div className="row">
                                 <div className="col-xs-6 col-md-4">
                                     <h3 className="h5 no-margin">Sub total: $1 200</h3>
-                                    <h3 className="h4 no-margin">Total: $1 200</h3>
+                                    <h3 className="h4 no-margin">Total: ${total} </h3>
                                 </div>
                                 <div className="col-md-4 hidden-xs">
                                 </div>
