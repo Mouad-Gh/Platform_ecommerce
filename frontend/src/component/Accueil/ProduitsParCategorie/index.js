@@ -13,7 +13,7 @@ const ProduitsParCategorie = (props) => {
                     {produits.length===0 && <h3 className="align-center">Cette catégorie ne contient aucun produit</h3>}
                     {
                         produits.map(produit => 
-                            <Produit key={produit.id} data={produit} />
+                            <Produit key={produit.id} data={produit} handleAjouterPanier={props.handleAjouterPanier} />
                         )
                     }
                 </div>
