@@ -11,7 +11,7 @@ const admin=require("../controllers/admin");
 const boutique=require("../controllers/boutique");
 const commande=require("../controllers/commande");
 const produit_specification=require('../controllers/produit_specification');
-
+const produits_souhaite=require("../controllers/produit_souhaite");
 //Utilisateur
 router.post("/utilisateur/ajouter",utilisateur.addUtilisateur);
 router.get("/utilisateur/tous",utilisateur.getUtilisateurs);
@@ -99,6 +99,13 @@ router.get("/commande/:id",commande.getCommande);
 router.post("/commande/ajouter",commande.addCommande);
 router.put("/commande/:id",commande.UpdateCommande);
 router.delete("/commande/:id",commande.deleteCommande);
+
+//Produits_Souhaites
+//id de utilisateur
+router.get("/produits_souhaite/:id",produits_souhaite.getProduits_Souhaites);
+//id de produit_souhaite
+router.delete("/produits_souhaite/:id",produits_souhaite.supprimerProduits_Souhaites);
+router.post("/produits_souhaite/ajouter",produits_souhaite.ajouterProduits_Souhaites);
 
 
 module.exports = router;

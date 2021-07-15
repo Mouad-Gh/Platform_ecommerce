@@ -29,7 +29,8 @@ const useFetch = (url) =>{
 
 
     return {
-        data
+        data,
+        setData
     }
 }
 

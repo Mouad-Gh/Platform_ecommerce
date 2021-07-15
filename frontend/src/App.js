@@ -1,11 +1,14 @@
-import {BrowserRouter as Router, Route ,Switch} from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useState, useEffect } from 'react';
 import Layout from './containers/Layout';
 import Accueil from './containers/Accueil';
 import Store from './containers/Store';
 import Produit from './containers/Produit';
 import Commande from './containers/Commande';
 import Panier from './component/Panier';
+import Favoris from './containers/favoris';
 import './App.css';
 
 function App() {
@@ -17,14 +20,14 @@ function App() {
     const jsonProduits = localStorage.getItem("panier");
     const localProduits = JSON.parse(jsonProduits);
     setProduits(localProduits);
-  }, [ ]);
+  }, []);
 
   //ajouter au panier
   const handleAjouterPanier = (produit) => {
     if (produits) {
       const produitsClone = produits.slice();
       let produitRechereche = produitsClone.find(p => p.id === produit.id);
-      if(!produitRechereche){
+      if (!produitRechereche) {
         produitsClone.push(produit);
         setProduits(produitsClone);
         localStorage.setItem('panier', JSON.stringify(produitsClone));
@@ -62,42 +65,55 @@ function App() {
         produitsClone[index] = produit;
       }
     }
-    
+
     setProduits(produitsClone);
     localStorage.setItem('panier', JSON.stringify(produitsClone));
   }
 
   return (
     <Router>
-    <Layout>
-      <Switch>
-        <Route exact path="/">
-          <Panier data={produits}
-            handleSupprimerPanier={handleSupprimerPanier}
-            handleModfierPanier={handleModfierPanier}
-          />
-          <Accueil handleAjouterPanier={handleAjouterPanier} />
-        </Route>
-        <Route exact path="/Accueil">
-          <Panier data={produits}
-            handleSupprimerPanier={handleSupprimerPanier}
-            handleModfierPanier={handleModfierPanier}
-          />
-          <Accueil handleAjouterPanier={handleAjouterPanier} />
-        </Route>
-        <Route  path="/Store" >
-          <Panier data={produits}
-            handleSupprimerPanier={handleSupprimerPanier}
-            handleModfierPanier={handleModfierPanier}
-          />
-          <Store handleAjouterPanier={handleAjouterPanier} />
-        </Route>
-        <Route path="/Commande" > <Commande handleSupprimerPanier={handleSupprimerPanier} /> </Route>
-        <Route path="/Produit/:id" > <Produit /> </Route>
-      </Switch>
-
-    </Layout>
-  </Router>
+      <Layout>
+        <Switch>
+          <Route exact path="/">
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Accueil handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+          <Route exact path="/Accueil">
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Accueil handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+          <Route path="/Store" >
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Store handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+          <Route path="/Commande" > <Commande handleSupprimerPanier={handleSupprimerPanier} /> </Route>
+          <Route path="/Produit/:id" >
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Produit handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+          <Route path="/Favoris" >
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Favoris handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+        </Switch>
+        <ToastContainer />
+      </Layout>
+    </Router>
   );
 }
 
