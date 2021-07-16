@@ -28,7 +28,10 @@ exports.getBoutiquesByPage = (req,res,next) => {
 }
 
 exports.getBoutiques = (req,res,next) => {
-    db.Boutique.findAll().then((Boutiques)=>{
+    db.Boutique.findAll({include: {
+        all: true
+      }
+    }).then((Boutiques)=>{
         res.send(Boutiques);
     })
     .catch((err)=>{
@@ -37,7 +40,16 @@ exports.getBoutiques = (req,res,next) => {
 }
 
 exports.getBoutique = (req,res,next) =>{
-    db.Boutique.findOne({where:{id:req.params.id}})
+    db.Boutique.findOne({
+        where:{id:req.params.id},
+        include: [{
+            model: db.Produit,
+            include: db.Produit_image
+          },{
+              model: db.Vendeur
+            }]
+        
+    })
     .then(Boutique => {
         res.send(Boutique);
     })

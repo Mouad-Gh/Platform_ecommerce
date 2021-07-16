@@ -1,6 +1,7 @@
 const db=require("../models");
 
 exports.addCommande = (req,res,next)=>{
+    //utilisee par la page Commande...
     db.Commande.create(req.body)
     .then((commande)=>{
         req.body.produits.forEach(produit=>{

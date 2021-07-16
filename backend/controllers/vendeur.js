@@ -1,12 +1,31 @@
 const db= require("../models");
 const acheteur = require("./achteur");
 
-
+/** 
+ * db.Vendeur.create({
+        Acheteur:{
+            Utilisateur:req.body
+        },
+        Boutiques:[{
+            nom_boutique:req.body.nom_boutique
+        }]
+    }).then((a)=>{
+        res.send(a);
+    });
+ */
 exports.addVendeur= (req,res,next)=>{
+
+    //ajouter un seul boutique avec le nouveau vendeur
     db.Utilisateur.create(req.body).then((utilisateur)=>{
         db.Acheteur.create({UtilisateurId:utilisateur.id}).then((acheteur)=>{
-            db.Vendeur.create({AcheteurId:acheteur.id}).then((a)=>{
-                res.send('succes');
+            db.Vendeur.create({AcheteurId:acheteur.id}).then((vendeur)=>{
+                db.Boutique.create({
+                    VendeurId: vendeur.id,
+                    nom_boutique: req.body.nom_boutique
+                }).then((a)=>{
+                    res.send('succes'+vendeur);
+                })
+                
             })
             .catch((err)=>{
                 next(err);
@@ -15,16 +34,19 @@ exports.addVendeur= (req,res,next)=>{
     }).catch((err)=>{
         next(err);
     });
+
+    
     
 };
 
 exports.getVendeurs= (req,res,next)=>{
     db.Vendeur.findAll({
-        include: {
+        include: [{
           model: db.Acheteur,
-          include: db.Utilisateur,
-          required: true
-        }
+          include: db.Utilisateur
+        },{
+            model: db.Boutique
+          }]
       }).then((Vendeurs)=>{
         res.send(Vendeurs);
     }).catch((err)=>{

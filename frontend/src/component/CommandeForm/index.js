@@ -21,7 +21,7 @@ const CommandeForm = (props) => {
         
         setTotal(to);
         setProduits(produits);
-        console.log(produits);
+        //console.log(produits);
 
 
       }, []);

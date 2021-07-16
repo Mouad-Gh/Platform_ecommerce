@@ -5,6 +5,7 @@ import Accueil from './containers/Accueil';
 import Store from './containers/Store';
 import Produit from './containers/Produit';
 import Commande from './containers/Commande';
+import Vendeur from './containers/Vendeur';
 import Panier from './component/Panier';
 import './App.css';
 
@@ -50,7 +51,7 @@ function App() {
     let produitsClone = produits.slice();
     let produit = produitsClone.find(p => p.id === produitId);
 
-    if (increase && produit.qte + 1 < 100) {
+    if (increase && produit.qte + 1 < 5) {
       produit.qte++;
     }
     if (!increase && produit.qte - 1 > 0) {
@@ -94,6 +95,7 @@ function App() {
         </Route>
         <Route path="/Commande" > <Commande handleSupprimerPanier={handleSupprimerPanier} /> </Route>
         <Route path="/Produit/:id" > <Produit /> </Route>
+        <Route path="/Vendeur/:id" > <Vendeur /> </Route>
       </Switch>
 
     </Layout>

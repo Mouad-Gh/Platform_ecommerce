@@ -12,7 +12,7 @@ const ProduitInfo= (props)=>{
 
               <p> &middot; Nombre de pièces: {quantite_dispo} </p>
               <p> &middot; {description} </p>
-              <p> &middot; {Marque} </p>
+              { Marque && <p> &middot; {Marque.nom} </p>}
               <hr className="offset-md hidden-sm"/>
               <hr className="offset-sm visible-sm"/>
               <hr className="offset-xs visible-sm"/>
