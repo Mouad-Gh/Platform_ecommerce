@@ -10,6 +10,7 @@ import Commande from './containers/Commande';
 import Panier from './component/Panier';
 import Favoris from './containers/favoris';
 import './App.css';
+import Profile from './containers/Profile';
 
 function App() {
 
@@ -109,6 +110,13 @@ function App() {
               handleModfierPanier={handleModfierPanier}
             />
             <Favoris handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+          <Route path="/Profile" >
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Profile handleAjouterPanier={handleAjouterPanier} />
           </Route>
         </Switch>
         <ToastContainer />

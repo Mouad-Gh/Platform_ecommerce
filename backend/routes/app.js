@@ -18,6 +18,8 @@ router.get("/utilisateur/tous",utilisateur.getUtilisateurs);
 router.get("/utilisateur/:id",utilisateur.getUtilisateur);
 router.put("/utilisateur/:id",utilisateur.updateUtilisateur);
 router.delete("/utilisateur/:id",utilisateur.deleteUtilisateur);
+//modifier le mdp
+router.put('/utilisateur/changerMDP/:id',utilisateur.updateMotDePasse);
 //Marque
 router.post("/marque/ajouter",marque.addMarque);
 router.get("/marque/tous",marque.getMarques);
@@ -75,6 +77,8 @@ router.get("/acheteur/:id",acheteur.getAcheteur);
 router.post("/acheteur/ajouter",acheteur.addAchteur);
 router.put("/acheteur/:id",acheteur.UpdateAchteur);
 router.delete("/acheteur/:id",acheteur.deleteAchteur);
+//obtenir les commandes des utilisateurs
+router.get('/achteur/:id/commandes',acheteur.getAchteurCommandes);
 
 //Admins
 router.get("/admin/tous",admin.getAdmins);

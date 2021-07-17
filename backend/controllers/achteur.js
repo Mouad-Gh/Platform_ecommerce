@@ -82,3 +82,25 @@ exports.deleteAchteur = (req,res,next)=>{
         });
     });
 }
+
+exports.getAchteurCommandes = (req,res,next)=>{
+    db.Acheteur.findByPk(req.params.id)
+    .then((achteur)=>{
+        achteur.getCommandes({
+            include:[{
+                model:db.Produit,
+                include:['Categorie',{
+                    model:db.Produit_image,
+                    where:{
+                        estPrincipale:1
+                    }
+                }]
+            }]
+        }).then((cmds)=>{
+            res.send(cmds);
+        });
+    })
+    .catch(err=>{
+        next(err);
+    })
+}
