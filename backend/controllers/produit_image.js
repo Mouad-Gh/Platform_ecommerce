@@ -1,10 +1,36 @@
 const db= require("../models");
 
+
+
+//upload produit images
+exports.uploadImages=(req,res,next)=>{
+    if(req.files===null){
+        return res.status(400).send("aucun fichiers");
+    }
+    const url = req.protocol + '://' + req.get('host');
+    req.files.map((file,i)=>{
+        db.Produit_image.create({
+            chemin_fichier: url + '/public/' + file.filename,
+            estPrincipale: (i===0) ? true : false,
+            ProduitId: req.body.ProduitId
+        })
+        // .then((f)=>{
+        //     res.send(f);
+        // }).catch((err)=>{
+        //     console.log(err);
+        // });
+    })
+
+};
+
+
 exports.addProduit_image= (req,res)=>{
     db.Produit_image.create(req.body).then(()=>{
         res.send("succes");
     });
 };
+
+
 
 exports.getProduit_images= (req,res)=>{
     db.Produit_image.findAndCountAll().then((images)=>{

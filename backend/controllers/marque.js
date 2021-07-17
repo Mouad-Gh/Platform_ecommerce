@@ -1,7 +1,7 @@
 const db=require("../models");
 
 exports.addMarque = (req,res,next)=>{
-    db.Categorie.create(req.body)
+    db.Marque.create(req.body)
     .then(()=>{
         res.send('succes');
     })

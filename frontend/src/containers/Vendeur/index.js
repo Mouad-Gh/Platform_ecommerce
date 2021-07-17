@@ -8,7 +8,7 @@ const Vendeur = () => {
         <div>
              <hr className="offset-lg"/>
             <hr className="offset-lg"/>
-            
+            {/* <ProduitAjout BoutiqueId={id} /> */}
             <ProduitListBoutique idBoutique={id} /> 
 
         </div>

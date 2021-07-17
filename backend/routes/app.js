@@ -11,6 +11,39 @@ const admin=require("../controllers/admin");
 const boutique=require("../controllers/boutique");
 const commande=require("../controllers/commande");
 const produit_specification=require('../controllers/produit_specification');
+const produits_souhaite=require("../controllers/produit_souhaite");
+
+
+const multer=require("multer");
+const path=require("path");
+const DIR = './public/';
+
+const storage=multer.diskStorage({
+    //where on our system we wanna store this
+    destination: (req,file,cb)=>{
+        cb(null,DIR);
+    },
+    //the name of the file we wanna store
+    filename: (req,file,cb)=>{
+        cb(null,Date.now() + path.extname(file.originalname) );
+    }
+    
+})
+
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('File type not accepted (.png, .jpg, .jpeg)'));
+        }
+    }
+});
+
+router.post("/upload",upload.array("imagesArray",8),produit_image.uploadImages);
+
 
 //Utilisateur
 router.post("/utilisateur/ajouter",utilisateur.addUtilisateur);
@@ -36,9 +69,10 @@ router.delete("/categorie/:id",categorie.deleteCategorie);
 router.get("/categorie/:nom/produits/:page(\\d+)/:page_size(\\d+)",categorie.getCategorieProduits);
 
 //Produit
-router.post("/produit/ajouter",produit.addProduit);
+router.post("/produit/ajouter",upload.array("imagesArray",8),produit.addProduit);
 router.get("/produit/tous",produit.getProduits);
 router.get("/produit/:id",produit.getProduit);
+
   //pour les produits d'une categorie 
 router.get("/produit/categorie/:id",produit.getProduitsCategorie);
 router.put("/produit/:id",produit.updateProduit);
@@ -51,6 +85,8 @@ router.get("/produit/filter/:page(\\d+)/:page_size(\\d+)",produit.produitsFilter
 //Produit_images
 router.post("/produit_image/ajouter",produit_image.addProduit_image);
 router.delete("/produit_image/:id",produit_image.deleteProduit_image);
+router.get("/produit_image/tous",produit_image.getProduit_images);
+
 
 //Produit_specification
 router.post("/produit_specification/ajouter",produit_specification.addProduit_specification);
@@ -99,6 +135,13 @@ router.get("/commande/:id",commande.getCommande);
 router.post("/commande/ajouter",commande.addCommande);
 router.put("/commande/:id",commande.UpdateCommande);
 router.delete("/commande/:id",commande.deleteCommande);
+
+//Produits_Souhaites
+//id de utilisateur
+router.get("/produits_souhaite/:id",produits_souhaite.getProduits_Souhaites);
+//id de produit_souhaite
+router.delete("/produits_souhaite/:id",produits_souhaite.supprimerProduits_Souhaites);
+router.post("/produits_souhaite/ajouter",produits_souhaite.ajouterProduits_Souhaites);
 
 
 module.exports = router;

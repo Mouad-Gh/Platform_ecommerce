@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload= require("express-fileupload");
 const app=express();
 const db=require("./models");
 const cors=require("cors");
@@ -13,6 +14,9 @@ app.use(express.json());
 //
 app.use(cors());
 
+//
+//app.use(fileUpload());
+app.use('/public', express.static('public'));
 db.sequelize.sync().then((result)=>{
     //  console.log(result);
 }).then((result)=>{

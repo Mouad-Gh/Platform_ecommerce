@@ -14,7 +14,7 @@ const ProduitList=(props)=>{
         <div className="row">
 
           {produits && produits.map((produit,index)=>{
-            return <ProduitCard key={index} produit={produit} dernier={(index===3)} />
+            return <ProduitCard key={index} produit={produit} dernier={(index===3)} handleAjouterPanier={props.handleAjouterPanier} />
           }
 
           )}

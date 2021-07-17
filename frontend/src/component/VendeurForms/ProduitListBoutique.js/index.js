@@ -1,9 +1,19 @@
 import useAxios from "../../../helpers/useAxios";
 import ProduitCard from "./ProduitCardBoutique";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 const ProduitListBoutique=(props)=>{
 
-    const { data:boutique }=useAxios('http://localhost:3000/api/boutique/'+props.idBoutique);
+    const { data:boutique,setData:setBoutique }=useAxios('http://localhost:3000/api/boutique/'+props.idBoutique);
+
+    const [produits,setProduits]= useState(boutique?boutique.Produits:[]);
+    useEffect(()=>{
+      if(boutique){
+        setProduits(boutique.Produits);
+      }
+      
+    },[boutique])
+    console.log(boutique);
   
       return (
         <section className="products">
@@ -14,11 +24,12 @@ const ProduitListBoutique=(props)=>{
             <div className="row">
               <div className="col-sm-6 col-md-3 product hidden-sm" >
                 <div className="body">
-                  <Link to="/"><i className="ion-android-create"></i></Link>
+                  <Link to={{pathname:"/ajouter",state:{BoutiqueId:props.idBoutique}}} >ajouter<i className="ion-android-create"></i></Link>
+                  
                 </div>
               </div>
-              {boutique && boutique.Produits.map((produit, index) => {
-                return <ProduitCard key={index} produit={produit} dernier={(index === 3)} />
+              {produits && produits.map((produit, index) => {
+                return <ProduitCard key={index} produit={produit} Produits={produits} setProduits={setProduits}  />
               }
 
               )}

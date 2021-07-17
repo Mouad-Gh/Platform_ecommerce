@@ -2,14 +2,18 @@ const db= require("../models");
 const { Op } = require("sequelize");
 const Produit_images = require("../models/Produit_images");
 const produit_image = require("./produit_image");
+const produit_specification= require("./produit_specification");
 
 exports.addProduit= (req,res,next)=>{
     db.Produit.create(req.body).then((produit)=>{
         req.body.ProduitId=produit.id;
-        produit_image.addProduit_image(req,res);
-        res.send('succes');
+        console.log(req.body.specifications);
+        produit_image.uploadImages(req,res,next);
+        produit_specification.addProduit_specifications(req,res,next);
+        
+        res.send('succes'+produit);
     }).catch(err => {
-        next(err);
+        console.log(err);
     });
 };
 
@@ -55,10 +59,12 @@ exports.updateProduit= (req,res,next)=>{
     const {nom,description,PU,quantite_dispo}=req.body;
     db.Produit.update({ nom,description,PU,quantite_dispo},{ where:{id:req.params.id}})
     .then((produit)=>{
+        produit_specification.updateProduit_specifications(req,res,next);
+        console.log(req.body);
         res.send('succes');
     })
     .catch(err => {
-        next(err);
+        console.log(err);
     })
 }
 
