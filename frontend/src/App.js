@@ -114,11 +114,9 @@ function App() {
             />
             <Favoris handleAjouterPanier={handleAjouterPanier} />
           </Route>
-<<<<<<< HEAD
           <Route path="/Vendeur/:id" > <Vendeur /> </Route>
           <Route path="/ajouter" > <ProduitAjout /> </Route>
           <Route path="/modifier" > <ProduitModification /> </Route>
-=======
           <Route path="/Profile" >
             <Panier data={produits}
               handleSupprimerPanier={handleSupprimerPanier}
@@ -126,7 +124,6 @@ function App() {
             />
             <Profile handleAjouterPanier={handleAjouterPanier} />
           </Route>
->>>>>>> c53f18283900cb75f6650a5281060278e2c8086a
         </Switch>
         <ToastContainer />
       </Layout>

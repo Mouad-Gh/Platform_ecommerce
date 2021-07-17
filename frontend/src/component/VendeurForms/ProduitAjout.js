@@ -1,5 +1,5 @@
 import ComboBox from "./ComboBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import ProduitSpecifications from "./produitSpecifications";
 import useFetch from "../../helpers/useFetch";
@@ -25,6 +25,11 @@ const ProduitAjout = (props) => {
             valeur:" "
         }
     ]);
+
+    useEffect(()=>{
+        setCategorie(categories[0]?.id);
+        setMarque(marques[0]?.id);
+    },[categories,marques]);
     //const [categorie, setCategorie] = useState(null);
 
     //specification inputs
@@ -46,7 +51,7 @@ const ProduitAjout = (props) => {
 
 
     const ajouter= (e)=>{
-
+        
         e.preventDefault()
         let formData = new FormData();
         console.log(quantite);
