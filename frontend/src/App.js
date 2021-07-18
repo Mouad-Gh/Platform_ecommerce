@@ -13,7 +13,6 @@ import Favoris from './containers/favoris';
 import ProduitAjout from './component/VendeurForms/ProduitAjout';
 import ProduitModification from './component/VendeurForms/ProduitListBoutique.js/ProduitModification';
 import './App.css';
-import Profile from './containers/Profile';
 
 function App() {
 
@@ -114,19 +113,9 @@ function App() {
             />
             <Favoris handleAjouterPanier={handleAjouterPanier} />
           </Route>
-<<<<<<< HEAD
           <Route path="/Vendeur/:id" > <Vendeur /> </Route>
           <Route path="/ajouter" > <ProduitAjout /> </Route>
           <Route path="/modifier" > <ProduitModification /> </Route>
-=======
-          <Route path="/Profile" >
-            <Panier data={produits}
-              handleSupprimerPanier={handleSupprimerPanier}
-              handleModfierPanier={handleModfierPanier}
-            />
-            <Profile handleAjouterPanier={handleAjouterPanier} />
-          </Route>
->>>>>>> c53f18283900cb75f6650a5281060278e2c8086a
         </Switch>
         <ToastContainer />
       </Layout>
