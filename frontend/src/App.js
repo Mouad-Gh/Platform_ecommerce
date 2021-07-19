@@ -14,6 +14,7 @@ import ProduitAjout from './component/VendeurForms/ProduitAjout';
 import ProduitModification from './component/VendeurForms/ProduitListBoutique.js/ProduitModification';
 import Profile from './containers/Profile';
 import './App.css';
+import Admin from './containers/Admin';
 
 function App() {
 
@@ -123,6 +124,9 @@ function App() {
               handleModfierPanier={handleModfierPanier}
             />
             <Profile handleAjouterPanier={handleAjouterPanier} />
+          </Route>
+          <Route path="/Admin">
+            <Admin />
           </Route>
         </Switch>
         <ToastContainer />

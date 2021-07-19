@@ -26,14 +26,37 @@ exports.getUtilisateurs = (req, res) => {
         offset: page * size
     }).then((utilisateurs) => {
         res.send({
-            contenu: utilisateurs.rows,
-            totalPages: Math.ceil(utilisateurs.count / size)
+            utilisateurs: utilisateurs.rows,
+            NombreDeLigne: Math.ceil(utilisateurs.count / size)
         });
     }).catch((err) => {
         console.log(err);
         res.status(500).send('try again later');
     });
 };
+
+exports.getUtilisateursByPage = (req, res)=>{
+    const page= req.params.page;
+    const page_size = req.params.page_size;
+
+    db.Utilisateur.findAll(
+        {
+            offset: parseInt((page -1) * page_size),
+            limit: parseInt(page_size),
+        }
+    ).then((Utilisateurs)=>{
+        db.Utilisateur.count()
+        .then((count)=>{
+            let utilisateurs = Utilisateurs.map((u)=> {
+                return {id:u.id,Utilisateur:u};
+            });
+            res.send({utilisateurs,NombreDeLigne:count});
+        })
+    })
+    .catch((err)=>{
+        next(err);
+    });
+}
 
 exports.getUtilisateur = (req, res) => {
     const idRecherche = req.params.id;
