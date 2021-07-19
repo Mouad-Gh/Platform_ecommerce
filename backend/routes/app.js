@@ -48,6 +48,7 @@ router.post("/upload",upload.array("imagesArray",8),produit_image.uploadImages);
 //Utilisateur
 router.post("/utilisateur/ajouter",utilisateur.addUtilisateur);
 router.get("/utilisateur/tous",utilisateur.getUtilisateurs);
+router.get("/utilisateur/tous/:page(\\d+)/:page_size(\\d+)",utilisateur.getUtilisateursByPage);
 router.get("/utilisateur/:id",utilisateur.getUtilisateur);
 router.put("/utilisateur/:id",utilisateur.updateUtilisateur);
 router.delete("/utilisateur/:id",utilisateur.deleteUtilisateur);
@@ -100,15 +101,17 @@ router.delete("/produit_specification/:id",produit_specification.deleteProduit_s
 //Vendeur
 router.post("/vendeur/ajouter",vendeur.addVendeur);
 router.get("/vendeur/tous",vendeur.getVendeurs);
+router.get("/vendeur/tous/:page(\\d+)/:page_size(\\d+)",vendeur.getVendeursByPage);
 router.get("/vendeur/:id",vendeur.getVendeur);
 router.put("/vendeur/:id",vendeur.updateVendeur);
 router.delete("/vendeur/:id",vendeur.deleteVendeur);
-
+router.get("/vendeur/find/:page(\\d+)/:page_size(\\d+)",vendeur.findVendeur);
 
 
 //Achteurs
 router.get("/acheteur/tous",acheteur.getAcheteurs);
 router.get("/acheteur/tous/:page(\\d+)/:page_size(\\d+)",acheteur.getAcheteursByPage);
+router.get("/acheteur/find/:page(\\d+)/:page_size(\\d+)",acheteur.findAcheteurs);
 router.get("/acheteur/:id",acheteur.getAcheteur);
 router.post("/acheteur/ajouter",acheteur.addAchteur);
 router.put("/acheteur/:id",acheteur.UpdateAchteur);
@@ -119,6 +122,7 @@ router.get('/achteur/:id/commandes',acheteur.getAchteurCommandes);
 //Admins
 router.get("/admin/tous",admin.getAdmins);
 router.get("/admin/tous/:page(\\d+)/:page_size(\\d+)",admin.getAdminsByPage);
+router.get("/admin/find/:page(\\d+)/:page_size(\\d+)",admin.findAdmin);
 router.get("/admin/:id",admin.getAdmin);
 router.post("/admin/ajouter",admin.addAdmin);
 router.put("/admin/:id",admin.UpdateAdmin);
