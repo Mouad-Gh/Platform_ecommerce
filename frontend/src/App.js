@@ -12,6 +12,7 @@ import Panier from './component/Panier';
 import Favoris from './containers/favoris';
 import ProduitAjout from './component/VendeurForms/ProduitAjout';
 import ProduitModification from './component/VendeurForms/ProduitListBoutique.js/ProduitModification';
+import Profile from './containers/Profile';
 import './App.css';
 
 function App() {
@@ -116,6 +117,13 @@ function App() {
           <Route path="/Vendeur/:id" > <Vendeur /> </Route>
           <Route path="/ajouter" > <ProduitAjout /> </Route>
           <Route path="/modifier" > <ProduitModification /> </Route>
+          <Route path="/Profile" >
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Profile handleAjouterPanier={handleAjouterPanier} />
+          </Route>
         </Switch>
         <ToastContainer />
       </Layout>
