@@ -3,7 +3,8 @@ module.exports= (sequelize,DataTypes)=>{
     const Categorie= sequelize.define('Categorie',{
         nom_categorie: {
             type: DataTypes.STRING(45),
-            allowNull: false
+            allowNull: false,
+            unique: true
           }
     });
     //Categorie.belongsTo(Utilisateur);

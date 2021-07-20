@@ -70,7 +70,8 @@ router.post("/categorie/ajouter",categorie.addCategorie);
 router.put("/categorie/:id",categorie.UpdateCategorie);
 router.delete("/categorie/:id",categorie.deleteCategorie);
 router.get("/categorie/:nom/produits/:page(\\d+)/:page_size(\\d+)",categorie.getCategorieProduits);
-
+//rechercher une categorie par son nom
+router.get("/categorie/nom/:nom",categorie.getCategorieByName);
 //Produit
 router.post("/produit/ajouter",upload.array("imagesArray",8),produit.addProduit);
 router.get("/produit/tous",produit.getProduits);

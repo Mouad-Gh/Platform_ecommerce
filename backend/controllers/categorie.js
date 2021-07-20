@@ -14,17 +14,25 @@ exports.getCategoriesByPage = (req,res,next) => {
     const page= req.params.page;
     const page_size = req.params.page_size;
 
-    db.Categorie.findAll(
+    db.Categorie.findAndCountAll(
         {
             offset: parseInt((page -1) * page_size),
             limit: parseInt(page_size),
         }
     ).then((Categories)=>{
-        res.send(Categories);
+        res.send({
+            Categories: Categories.rows,
+            NombreDepages: Math.ceil(Categories.count / page_size)
+        });
     })
     .catch((err)=>{
         next(err);
     });
+}
+//rechercher
+exports.getCategorieParNom= (req, res, next) => {
+   
+
 }
 
 exports.getCategories = (req,res,next) => {
@@ -32,6 +40,16 @@ exports.getCategories = (req,res,next) => {
         res.send(Categories);
     })
     .catch((err)=>{
+        next(err);
+    });
+}
+
+exports.getCategorieByName = (req,res,next) =>{
+    db.Categorie.findOne({where:{nom_categorie:req.params.nom}})
+    .then(Categorie => {
+        res.send(Categorie);
+    })
+    .catch(err => {
         next(err);
     });
 }

@@ -25,7 +25,7 @@ const Tags = (props) => {
                     </Link>
                     <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`${props.path}/categorie`}>
                         <label className="btn btn-default btn-sm">
-                            Les categorie
+                            Les categories
                         </label>
                     </Link>
                 </div>
