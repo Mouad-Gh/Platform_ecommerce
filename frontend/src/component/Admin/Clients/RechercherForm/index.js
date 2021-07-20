@@ -3,7 +3,7 @@ import { useState } from "react";
 const RechercherForm = (props)=>{
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
-    const [role, setRole] = useState('Acheteur');
+    const [role, setRole] = useState('utilisateur');
 
 
     const handleOnSubmit = (e)=>{
@@ -14,29 +14,30 @@ const RechercherForm = (props)=>{
 
     return (
         <>
-        <div id="FindUtilisateurModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
+        <div id="FindUtilisateurModal" className="modal fade">
+            <div className="modal-dialog">
+                <div className="modal-content">
                     <form onSubmit={handleOnSubmit}>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Trouver un utilisateur</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div className="modal-header">
+                            <h4 className="modal-title">Trouver un utilisateur</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
+                        <div className="modal-body">
+                            <div className="form-group">
                                 <label>Nom</label>
-                                <input type="text" class="form-control" required onChange={(e) => { setNom(e.target.value) }} />
+                                <input type="text" className="form-control" required onChange={(e) => { setNom(e.target.value) }} />
                             </div>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Prenom</label>
-                                <input type="text" class="form-control" required onChange={(e) => { setPrenom(e.target.value) }} />
+                                <input type="text" className="form-control" required onChange={(e) => { setPrenom(e.target.value) }} />
                             </div>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Role</label>
                                 <div className="group-select justify" tabIndex='1'>
-                                    <input className="form-control select" id="role" name="role" defaultValue={role} placeholder="" required="" />
+                                    <input className="form-control select" id="role" name="role" defaultValue={role==='utilisateur' ? 'Tous' : role} placeholder="" required="" />
 
                                     <ul className="dropdown">
+                                        <li data-value="Tous" onClick={(e) => { setRole('utilisateur') }}>Tous</li>
                                         <li data-value="acheteur" onClick={(e) => { setRole('acheteur') }}>Acheteur</li>
                                         <li data-value="vendeur" onClick={(e) => { setRole('vendeur') }}>Vendeur</li>
                                         <li data-value="admin" onClick={(e) => { setRole('admin') }}>Admin</li>
@@ -46,9 +47,9 @@ const RechercherForm = (props)=>{
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" defaultValue="Annuler" />
-                            <button class="btn btn-success">
+                        <div className="modal-footer">
+                            <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Annuler" />
+                            <button className="btn btn-success">
                                 Rechercher
                             </button>
                         </div>

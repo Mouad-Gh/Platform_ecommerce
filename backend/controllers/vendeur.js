@@ -69,8 +69,10 @@ exports.getVendeursByPage = (req, res, next) => {
         limit: parseInt(page_size),
     }).then((Vendeurs) => {
         db.Vendeur.count().then((count) => {
-            let utilisateurs = Vendeurs.map(v => v.Acheteur);
-            res.send({ utilisateurs, NombreDeLigne: count });
+            let utilisateurs = Vendeurs.map((u)=> {
+                return {id:u.id,Utilisateur:u.Acheteur.Utilisateur,role:'vendeur'};
+            });
+            res.send({ utilisateurs, NombreDeLigne: count});
         })
     }).catch((err) => {
         next(err);

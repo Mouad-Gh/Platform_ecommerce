@@ -20,7 +20,7 @@ app.use('/public', express.static('public'));
 db.sequelize.sync().then((result)=>{
     //  console.log(result);
 }).then((result)=>{
-     db.Utilisateur.create({Nom: "Ghouichat", Prenom: "Mouad", Email:"mouad@gmail.com", Mdp:"12345"});
+     //db.Utilisateur.create({Nom: "Ghouichat", Prenom: "Mouad", Email:"mouad@gmail.com", Mdp:"12345"});
     console.log(db.Utilisateur);
 }).catch((err)=>{
     console.log(err);

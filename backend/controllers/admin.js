@@ -50,7 +50,10 @@ exports.getAdminsByPage = (req, res, next) => {
         }
     ).then((Admins) => {
         db.Admin.count().then((count) => {
-            res.send({ utilisateurs: Admins, NombreDeLigne: count });
+            let utilisateurs = Admins.map((u)=> {
+                return {id:u.id,Utilisateur:u.Utilisateur,role:'admin'};
+            });
+            res.send({ utilisateurs, NombreDeLigne: count });
         })
     })
         .catch((err) => {

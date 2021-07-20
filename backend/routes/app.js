@@ -52,6 +52,7 @@ router.get("/utilisateur/tous/:page(\\d+)/:page_size(\\d+)",utilisateur.getUtili
 router.get("/utilisateur/:id",utilisateur.getUtilisateur);
 router.put("/utilisateur/:id",utilisateur.updateUtilisateur);
 router.delete("/utilisateur/:id",utilisateur.deleteUtilisateur);
+router.get("/utilisateur/find/:page(\\d+)/:page_size(\\d+)",utilisateur.findUtilisateur);
 //modifier le mdp
 router.put('/utilisateur/changerMDP/:id',utilisateur.updateMotDePasse);
 //Marque
