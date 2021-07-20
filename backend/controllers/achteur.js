@@ -51,8 +51,11 @@ exports.getAcheteursByPage = (req, res, next) => {
         }
     ).then((Acheteurs) => {
         db.Acheteur.count()
-            .then((count) => {
-                res.send({ utilisateurs: Acheteurs, NombreDeLigne: count });
+            .then(async (count) => {
+                let utilisateurs = Acheteurs.map((u)=> {
+                    return {id:u.id,Utilisateur:u.Utilisateur,role:'Acheteur'};
+                });
+                res.send({ utilisateurs, NombreDeLigne: count });
             })
     })
         .catch((err) => {

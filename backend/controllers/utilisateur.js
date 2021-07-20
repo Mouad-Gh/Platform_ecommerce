@@ -35,27 +35,41 @@ exports.getUtilisateurs = (req, res) => {
     });
 };
 
-exports.getUtilisateursByPage = (req, res)=>{
-    const page= req.params.page;
+exports.getUtilisateursByPage = async (req, res) => {
+    const page = req.params.page;
     const page_size = req.params.page_size;
 
     db.Utilisateur.findAll(
         {
-            offset: parseInt((page -1) * page_size),
+            offset: parseInt((page - 1) * page_size),
             limit: parseInt(page_size),
         }
-    ).then((Utilisateurs)=>{
+    ).then(async (Utilisateurs) => {
         db.Utilisateur.count()
-        .then((count)=>{
-            let utilisateurs = Utilisateurs.map((u)=> {
-                return {id:u.id,Utilisateur:u};
-            });
-            res.send({utilisateurs,NombreDeLigne:count});
-        })
+            .then(async (count) => {
+                let utilisateurs = await Promise.all(Utilisateurs.map(async (u) => {
+                    let admin = await u.getAdmin();
+                    if (admin) {
+                        return { id: admin.id, Utilisateur: u, role: 'Admin' };
+                    }
+                    let acheteur = await u.getAcheteur();
+                    if (acheteur) {
+                        let vendeur = await acheteur.getVendeur();
+                        if (vendeur) {
+                            return { id: vendeur.id, Utilisateur: u, role: 'Vendeur' };
+                        }
+                        else {
+                            return { id: acheteur.id, Utilisateur: u, role: 'Acheteur' };
+                        }
+
+                    }
+                }));
+                res.send({ utilisateurs, NombreDeLigne: count });
+            })
     })
-    .catch((err)=>{
-        next(err);
-    });
+        .catch((err) => {
+            next(err);
+        });
 }
 
 exports.getUtilisateur = (req, res) => {
@@ -74,11 +88,33 @@ exports.updateUtilisateur = (req, res) => {
         utilisateur.Sexe = req.body.Sexe;
         utilisateur.DateNaissance = req.body.DateNaissance;
         utilisateur.Email = req.body.Email;
-        utilisateur.save();
-    }).then(() => {
-        res.send('succees');
-    });
+        utilisateur.save().then(() => {
+            res.send({ message: 'succees' });
+        });
+    })
 };
+
+
+exports.findUtilisateur = (req, res, next) => {
+    const page = req.params.page;
+    const page_size = req.params.page_size;
+    db.Utilisateur.findAll({
+        where: {
+            Nom: req.query.Nom,
+            Prenom: req.query.Prenom
+        },
+        offset: parseInt((page - 1) * page_size),
+        limit: parseInt(page_size),
+    }).then((Utilisateurs) => {
+        let utilisateurs = Utilisateurs.map((u) => {
+            return { id: u.id, Utilisateur: u };
+        });
+        res.send({ utilisateurs, NombreDeLigne: utilisateurs.length });
+    })
+
+}
+
+
 /*
     exports.updateUtilisateur = async (req, res)=>{
     const idRecherche=req.params.id;
@@ -89,10 +125,25 @@ exports.updateUtilisateur = (req, res) => {
     };
  */
 
-exports.deleteUtilisateur = (req, res) => {
+exports.deleteUtilisateur = async (req, res) => {
     const idRecherche = req.params.id;
+    const u = await db.Utilisateur.findByPk(idRecherche);
+    const ad = await u.getAdmin();
+    const ach = await u.getAcheteur();
+    if (ad) {
+        await ad.destroy();
+        await u.destroy();
+    }
+    else if (ach) {
+        const vendeur = await ach.getVendeur();
+        if (vendeur) {
+            await vendeur.destroy();
+        }
+        await ach.destroy();
+        await u.destroy();
+    }
     db.Utilisateur.destroy({ where: { id: idRecherche } }).then(() => {
-        res.send('succees');
+        res.send({ message: 'succees' });
     });
 };
 
