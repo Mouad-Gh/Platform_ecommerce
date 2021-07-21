@@ -1,36 +1,36 @@
-//import './style.css';
-import useFetch from '../../../helpers/useFetch';
-import AjouterForm from './AjouterForm';
-import ScriptTag from 'react-script-tag/lib/ScriptTag';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
-import RechercherForm from './RechercherForm';
-import axios from 'axios';
+import axios from "axios";
+import { useState } from "react";
+import ScriptTag from "react-script-tag/lib/ScriptTag";
+import { toast } from "react-toastify";
+import useFetch from "../../../helpers/useFetch";
+import AjouterForm from "./AjouterForm";
+import RechercherForm from "./RechercherForm";
 
-const Categories = () => {
-
+const Marques = () => {
+    
     const PAGE_SIZE = 5;
     
     const [CURRENT_PAGE,setCurrentPage]=useState(1);
-    const {data:categories,setData:setCategories} = useFetch('http://localhost:3000/api/categorie/tous/'+CURRENT_PAGE+'/'+PAGE_SIZE);
-    console.log(categories);
-    const pages=new Array(categories.NombreDepages).fill(null).map((v,i)=>i);
+    const {data:marques,setData:setMarques} = useFetch('http://localhost:3000/api/marque/tous/'+CURRENT_PAGE+'/'+PAGE_SIZE);
+    console.log(marques);
+    const pages=new Array(marques.NombreDepages).fill(null).map((v,i)=>i);
 
     //pour la modification
     const [id,setId]=useState(null);
     //
-    const [nom_categorie,setNom_categorie]=useState(null);
+    const [nom,setNom]=useState(null);
+    const [pays,setPays]=useState(null);
 
     const handleOnModifier=(e)=>{
         e.preventDefault();
-        console.log(id,nom_categorie);
-        fetch("http://localhost:3000/api/categorie/"+id,{
+        
+        fetch("http://localhost:3000/api/marque/"+id,{
             method: 'PUT',
             headers: {"Content-Type": "application/json" },
-            body: JSON.stringify({nom_categorie})
+            body: JSON.stringify({nom,pays})
         }).then(()=>{
             RefreshData();
-            toast.success('categorie est modifiée avec succès', { toastId: 1, autoClose: 4000 });
+            toast.success('marque est modifiée avec succès', { toastId: 1, autoClose: 4000 });
             console.log('updated');
 
         }).catch(err=>console.log(err));
@@ -38,24 +38,24 @@ const Categories = () => {
     const handleOnSupprimer=(e)=>{
 
         e.preventDefault();
-        axios.delete("http://localhost:3000/api/categorie/"+id).then(response => {
+        axios.delete("http://localhost:3000/api/marque/"+id).then(response => {
             console.log((response.data))
-            const newList=categories.filter(p=>{
-                return p.id !== id;
-            });
-            setCategories(newList);
-            toast.success('categorie est suprimée avec succès', { toastId: 1, autoClose: 4000 });
+            const newList=marques.filter(m=>{
+                return m.id !== id;
+            })
+            setMarques(newList);
+            toast.success('marque est suprimée avec succès', { toastId: 1, autoClose: 4000 });
 
         })
     }
     const RefreshData = () => {
         const abortCont = new AbortController();
-        fetch('http://localhost:3000/api/categorie/tous/'+CURRENT_PAGE+'/'+PAGE_SIZE, { signal: abortCont.signal })
+        fetch('http://localhost:3000/api/marque/tous/'+CURRENT_PAGE+'/'+PAGE_SIZE, { signal: abortCont.signal })
             .then(res => {
                 return res.json();
             })
             .then((data) => {
-                setCategories(data);
+                setMarques(data);
             })
             .catch((err) => {
                 if (err.name === 'AbortError') {
@@ -73,7 +73,7 @@ const Categories = () => {
     const handleOnAjouter=(data)=>{
 
         const abortCont = new AbortController();
-        fetch('http://localhost:3000/api/categorie/ajouter',
+        fetch('http://localhost:3000/api/marque/ajouter',
             {
                 signal: abortCont.signal,
                 method: 'POST',
@@ -85,7 +85,7 @@ const Categories = () => {
         )
             .then(res => {
                 RefreshData();
-                toast.success('cette categorie est ajoutée avec succès', { toastId: 1, autoClose: 4000 });
+                toast.success('cette marque est ajoutée avec succès', { toastId: 1, autoClose: 4000 });
                 console.log(res.json())
             })
             .catch((err) => {
@@ -101,7 +101,7 @@ const Categories = () => {
     const handleOnRechercher=(nom)=>{
 
         const abortCont = new AbortController();
-        fetch('http://localhost:3000/api/categorie/nom/'+nom,
+        fetch('http://localhost:3000/api/marque/nom/'+nom,
             {
                 signal: abortCont.signal,
                 method: 'GET',
@@ -115,8 +115,7 @@ const Categories = () => {
         })
             .then(res =>{
                 console.log(res);
-                setCategories({Categories:[res],NombreDepages:1});
-               
+                setMarques({Marques:[res],NombreDepages:1} );
                 setCurrentPage(1);
             } )
             
@@ -143,10 +142,10 @@ const Categories = () => {
                                     <div className="table-title">
                                         <div className="row">
                                             <div className="col-sm-6">
-                                                <h2>Gérer <b>les categories</b></h2>
+                                                <h2>Gérer <b>les marques</b></h2>
                                             </div>
                                             <div className="col-sm-6">
-                                                <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="ion-ios-plus-outline"></i> <span style={{ marginTop: 6 }}>ajouter une nouvelle categorie</span></a>
+                                                <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="ion-ios-plus-outline"></i> <span style={{ marginTop: 6 }}>ajouter une nouvelle marque</span></a>
                                                 <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="ion-ios-trash-outline"></i> <span style={{ marginTop: 6 }}>Supprimer</span></a>
                                                 <a href="#FindUtilisateurModal" className="btn btn-warning" data-toggle="modal"><i className="ion-ios-search"></i> <span style={{ marginTop: 6 }}>Rechercher</span></a>
                                             </div>
@@ -162,25 +161,27 @@ const Categories = () => {
                                                     </span>
                                                 </th>
                                                 <th>id</th>
-                                                <th>nom de categorie</th>
+                                                <th>nom </th>
+                                                <th>pays </th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {categories.Categories?.map(categorie =>{
+                                            {marques.Marques?.map(marque =>{
                                                 
                                                 const handleClique= ()=>{
-                                                    setId(categorie.id)
+                                                    setId(marque.id)
                                                 }
-                                                return <tr key={categorie.id}>
+                                                return <tr key={marque.id}>
                                                     <td>
                                                         <span className="custom-checkbox">
                                                             <input type="checkbox" id="checkbox1" name="options[]" value="1" />
                                                             <label htmlFor="checkbox1"></label>
                                                         </span>
                                                     </td>
-                                                    <td>{categorie.id}</td>
-                                                    <td>{categorie.nom_categorie}</td>
+                                                    <td>{marque.id}</td>
+                                                    <td>{marque.nom}</td>
+                                                    <td>{marque.pays}</td>
                                                     <td>
                                                         <a href="#editEmployeeModal" className="edit" data-toggle="modal" onClick={handleClique} ><i className="ion-android-create" data-toggle="tooltip" title="Edit"></i></a>
                                                         <a href="#deleteEmployeeModal" className="delete" onClick={handleClique} data-toggle="modal"><i className="ion-ios-trash" data-toggle="tooltip" title="Delete"></i></a>
@@ -198,7 +199,7 @@ const Categories = () => {
                                                 <li className="page-item"><button onClick={()=>setCurrentPage(pageIndex+1)} href="#" className="page-link">{pageIndex}</button></li>
                                             ))}
                                             
-                                            <li className="page-item"><button disabled={CURRENT_PAGE===categories.NombreDepages?true:false} onClick={()=>setCurrentPage(CURRENT_PAGE+1)}  className="page-link">Next</button></li>
+                                            <li className="page-item"><button disabled={CURRENT_PAGE===marques.NombreDepages?true:false} onClick={()=>setCurrentPage(CURRENT_PAGE+1)}  className="page-link">Next</button></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -220,7 +221,11 @@ const Categories = () => {
                             <div className="modal-body">
                                 <div className="form-group">
                                     <label>Nom</label>
-                                    <input type="text" onChange={(e) => { setNom_categorie(e.target.value) }} className="form-control" required />
+                                    <input type="text" onChange={(e) => { setNom(e.target.value) }} className="form-control" required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Pays</label>
+                                    <input type="text" onChange={(e) => { setPays(e.target.value) }} className="form-control" required />
                                 </div>
                             </div>
                             <div className="modal-footer">
@@ -256,7 +261,8 @@ const Categories = () => {
 
             <ScriptTag type="text/javascript" src="/assets/js/core.js" />
         </>
+     
      );
 }
  
-export default Categories;
+export default Marques;

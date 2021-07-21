@@ -58,7 +58,10 @@ router.put('/utilisateur/changerMDP/:id',utilisateur.updateMotDePasse);
 //Marque
 router.post("/marque/ajouter",marque.addMarque);
 router.get("/marque/tous",marque.getMarques);
+router.get("/marque/tous/:page(\\d+)/:page_size(\\d+)",marque.getMarquesByPage);
 router.get("/marque/:id",marque.getMarque);
+//rechercher une marque par son nom
+router.get("/marque/nom/:nom",marque.getMarqueByName);
 router.put("/marque/:id",marque.updateMarque);
 router.delete("/marque/:id",marque.deleteMarque);
 //

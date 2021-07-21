@@ -2,11 +2,12 @@ import { useState } from "react";
 
 const RechercherForm = (props) => {
 
-    const [nom_categorie, setnom_categorie] = useState(null);
+    const [nom, setNom] = useState(null);
+    const [pays, setPays] = useState(null);
     const handleOnSubmit= (e)=>{
         e.preventDefault();
        
-        props.handleOnRechercher(nom_categorie);
+        props.handleOnRechercher(nom);
     }
     return ( 
         <>
@@ -15,13 +16,13 @@ const RechercherForm = (props) => {
                     <div class="modal-content">
                         <form onSubmit={handleOnSubmit}>
                             <div class="modal-header">
-                                <h4 class="modal-title">Trouver une categorie</h4>
+                                <h4 class="modal-title">Trouver une marque</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Nom</label>
-                                    <input type="text" class="form-control" required onChange={(e) => { setnom_categorie(e.target.value) }} />
+                                    <input type="text" class="form-control" required onChange={(e) => { setNom(e.target.value) }} />
                                 </div>
                             </div>
                             <div class="modal-footer">
