@@ -1,23 +1,8 @@
 const db=require("../models");
 
-exports.addCommande = (req,res,next)=>{
+exports.addCommande = async (req,res,next)=>{
     //utilisee par la page Commande...
-    db.Commande.create(req.body)
-    .then((commande)=>{
-        req.body.produits.forEach(produit=>{
-            db.Produit.findByPk(produit.id).then(prod=>{
-                commande.addProduit(prod,{through: { quantite: produit.qte }}).then(()=>{
-                    prod.decrement({'quantite_dispo' : produit.qte});
-                });
-
-            });
-        });
-        
-        res.send({message:'Commande ajouté avec succès!'});
-    })
-    .catch((err)=>{
-        next(err);
-    });
+    res.send(req.user);
 }
 
 exports.getCommandesByPage = (req,res,next) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CommandePanier from "./CommandePanier";
-import { authHeader, handleResponse } from '../../helpers/';
+import  handleResponse from '../../helpers/handle-response';
+import  {authHeader} from '../../helpers/auth-header';
 
 const CommandeForm = (props) => {
 
@@ -30,14 +31,14 @@ const CommandeForm = (props) => {
       }, []);
     const ajouterSubmit=(e)=>{
         e.preventDefault();
-        const commande={adress,total,AcheteurId:1,produits:produits};
+        const commande={adress,total,AcheteurId:2,produits:produits,date:'2020/1/1'};
         console.log('here', JSON.stringify(commande));
         fetch('http://localhost:3000/api/commande/ajouter',{
             method: 'POST',
-            headers: {"Content-Type": "application/json" },
+            headers: authHeader(),
             body: JSON.stringify(commande)
-        }).then(()=>{
-            console.log('added');
+        }).then((res)=>{
+            res.json().then((ress)=>console.log(ress));
         }).catch(err=>console.log(err));    
         
     }

@@ -150,7 +150,7 @@ router.delete("/boutique/:id",boutique.deleteBoutique);
 router.get("/commande/tous",commande.getCommandes);
 router.get("/commande/tous/:page(\\d+)/:page_size(\\d+)",commande.getCommandesByPage);
 router.get("/commande/:id",commande.getCommande);
-router.post("/commande/ajouter",commande.addCommande);
+router.post("/commande/ajouter",[passport.authenticate('jwt',{session:false})],commande.addCommande);
 router.put("/commande/:id",commande.UpdateCommande);
 router.delete("/commande/:id",commande.deleteCommande);
 
