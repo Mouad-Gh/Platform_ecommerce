@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import CommandePanier from "./CommandePanier";
+import { authHeader, handleResponse } from '../../helpers/';
+
 const CommandeForm = (props) => {
 
     const [adress, setAdress] = useState('');
@@ -18,7 +20,8 @@ const CommandeForm = (props) => {
             prod.qte=produit.qte;
             produits.push(prod);
         });
-        
+        console.log("ProduitsPanier");
+        console.log(ProduitsPanier);
         setTotal(to);
         setProduits(produits);
         //console.log(produits);

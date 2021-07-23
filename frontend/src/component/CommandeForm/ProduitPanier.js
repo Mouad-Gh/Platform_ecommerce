@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 
 const ProduitPanier = (props) => {
-    const {nom,img,PU,nom_categorie,id}=props.produit;
+    const {nom,img,PU,nom_categorie,id,qte}=props.produit;
     return ( 
         <div className="media">
                         <div className="media-left">
@@ -19,7 +19,7 @@ const ProduitPanier = (props) => {
                                 <span className="input-group-btn">
                                     <button className="btn btn-default btn-sm" type="button" data-action="minus"><i className="ion-minus-round"></i></button>
                                 </span>
-                                <input type="text" className="form-control input-sm" placeholder="Qty" defaultValue="1" readOnly="" />
+                                <input type="text" className="form-control input-sm" placeholder="Qty" defaultValue={qte} readOnly="" />
                                 <span className="input-group-btn">
                                     <button className="btn btn-default btn-sm" type="button" data-action="plus"><i className="ion-plus-round"></i></button>
                                 </span>

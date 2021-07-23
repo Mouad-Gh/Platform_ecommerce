@@ -14,12 +14,12 @@ const Tags = (props) => {
                              Les clients
                         </label>
                     </Link>
-                    <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`${props.path}/marques`}>
+                    <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`${props.path}/Marques`}>
                         <label className="btn btn-default btn-sm">
                             Les marques
                         </label>
                     </Link>
-                    <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`${props.path}/categorie`}>
+                    <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`${props.path}/Categories`}>
                         <label className="btn btn-default btn-sm">
                             Les categories
                         </label>

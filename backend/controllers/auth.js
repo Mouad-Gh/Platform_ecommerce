@@ -7,7 +7,7 @@ exports.login = (req,res,next)=>{
             Email:req.body.Email
         }
     })
-    .then((utilisateur)=>{
+    .then(async (utilisateur)=>{
         if(!utilisateur){
             res.status(400).json({
                 message:'E-mail n\'existe pas',
@@ -16,22 +16,43 @@ exports.login = (req,res,next)=>{
         const mdpEstValide = Utils.mdpEstValide(req.body.Mdp,utilisateur.Mdp);
         if(mdpEstValide){
             const token = Utils.creerJWT(utilisateur);
+            let u = {
+                id:utilisateur.id,
+                Nom: utilisateur.Nom,
+                Prenom: utilisateur.Prenom,
+                Sexe: utilisateur.Sexe,
+                DateNaissance: utilisateur.DateNaissance,
+                Adress: utilisateur.Adress,
+                Email: utilisateur.Email,
+            };
+            const acheteur = await utilisateur.getAcheteur();
+            
+            if(acheteur){
+                const vendeur = await acheteur.getVendeur();
+                if(vendeur){
+                    u.role = 'vendeur';
+                    u.vendeurId=vendeur.id;
+                }
+                else{
+                    u.role = 'acheteur';
+                }
+                    
+                    u.acheteurId=acheteur.id;
+                
+            }
+            const admin = await utilisateur.getAdmin();
+            if(admin){
+                u.role = 'admin';
+                u.adminId=admin.id;
+            }
             res.json({
-                utilisateur : {
-                    Nom: utilisateur.Nom,
-                    Prenom: utilisateur.Prenom,
-                    Sexe: utilisateur.Sexe,
-                    DateNaissance: utilisateur.DateNaissance,
-                    Adress: utilisateur.Adress,
-                    Email: utilisateur.Email,
-                },
+                utilisateur:u,
                 token : token
             });
         }
         else{
-            res.send({
-                message:"Mot de passe incorrect",
-                token:null
+            res.status(400).json({
+                message:'Mot de passe incorrect',
             });
         }
     })

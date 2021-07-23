@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { history } from '../../helpers/history';
 import { authenticationService } from '../../services/authenticationService';
+import { toast } from 'react-toastify';
 const Login = (props) => {
 
     const [email,setEmail] = useState(null);
@@ -17,10 +19,11 @@ const Login = (props) => {
         e.preventDefault();
         authenticationService.login(email,mdp)
         .then((utilisateur)=>{
-            console.log(utilisateur);
+            toast.success('vous êtes connecté', { toastId: 2, autoClose: 6000 });
+            window.location.reload();
         })
         .catch(err =>{
-            console.log(err);
+            toast.error(err, { toastId: 2, autoClose: 6000 });
         });
     }
 
@@ -46,7 +49,7 @@ const Login = (props) => {
                             <br /><br />
 
                             <p>
-                                Vous n'avez pas de compte? Créez-en un maintenant! <a href="../signup/">Inscription</a>
+                                Vous n'avez pas de compte? Créez-en un maintenant! <Link to="/Inscription" >Inscription</Link>
                             </p>
 
                         </form>

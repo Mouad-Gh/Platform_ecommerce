@@ -39,6 +39,7 @@ function App() {
       if (!produitRechereche) {
         produitsClone.push(produit);
         setProduits(produitsClone);
+        console.log(produitsClone);
         localStorage.setItem('panier', JSON.stringify(produitsClone));
       }
     }
@@ -104,7 +105,7 @@ function App() {
             />
             <Store handleAjouterPanier={handleAjouterPanier} />
           </Route>
-          <Route path="/Commande" > <Commande handleSupprimerPanier={handleSupprimerPanier} /> </Route>
+          <PrivateRoute path="/Commande" > <Commande handleSupprimerPanier={handleSupprimerPanier} /> </PrivateRoute>
           <Route path="/Produit/:id" >
             <Panier data={produits}
               handleSupprimerPanier={handleSupprimerPanier}
@@ -113,19 +114,16 @@ function App() {
             <Produit handleAjouterPanier={handleAjouterPanier} />
           </Route>
 
-          <Route path="/Vendeur/:id" > <Vendeur /> </Route>
-          <Route path="/ajouter" > <ProduitAjout /> </Route>
-          <Route path="/modifier" > <ProduitModification /> </Route>
-          <Route path="/Profile" >
+          <PrivateRoute path="/Vendeur/:id" > <Vendeur /> </PrivateRoute>
+          <PrivateRoute path="/ajouter" > <ProduitAjout /> </PrivateRoute>
+          <PrivateRoute path="/modifier" > <ProduitModification /> </PrivateRoute>
+          <PrivateRoute path="/Profile" >
             <Panier data={produits}
               handleSupprimerPanier={handleSupprimerPanier}
               handleModfierPanier={handleModfierPanier}
             />
             <Profile handleAjouterPanier={handleAjouterPanier} />
-          </Route>
-          <Route path="/Admin">
-            <Admin />
-          </Route>
+          </PrivateRoute>
           <Route path="/Login">
             <Login />
           </Route>
@@ -139,7 +137,9 @@ function App() {
             />
             <Favoris handleAjouterPanier={handleAjouterPanier} />
           </PrivateRoute>
-
+          <Route  path="/Admin">
+            <Admin />
+          </Route >
         </Switch>
         <ToastContainer />
       </Layout>
