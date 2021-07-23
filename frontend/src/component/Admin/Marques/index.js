@@ -39,11 +39,13 @@ const Marques = () => {
 
         e.preventDefault();
         axios.delete("http://localhost:3000/api/marque/"+id).then(response => {
-            console.log((response.data))
-            const newList=marques.filter(m=>{
+
+            const newList=marques.Marques.filter(m=>{
                 return m.id !== id;
             })
-            setMarques(newList);
+            let newMarques = JSON.parse(JSON.stringify(marques));
+            newMarques.Marques = newList;
+            setMarques(newMarques);
             toast.success('marque est suprimée avec succès', { toastId: 1, autoClose: 4000 });
 
         })

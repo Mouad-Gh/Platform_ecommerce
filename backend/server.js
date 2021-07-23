@@ -3,11 +3,15 @@ const fileUpload= require("express-fileupload");
 const app=express();
 const db=require("./models");
 const cors=require("cors");
+const passport = require('passport');
 
 //const Utilisateur=require("./models/Utilisateur");
 const routes=require("./routes/app");
 const PORT = process.env.PORT || 3000;
 
+//init passport 
+require('./config/passport')(passport);
+app.use(passport.initialize());
 app.use(express.urlencoded({extended : true}));
 //to make express aware of bodies
 app.use(express.json());

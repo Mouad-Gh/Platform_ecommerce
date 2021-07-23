@@ -22,10 +22,11 @@ const Tags = (props) => {
                         <input type="radio" name="options" id="option1" defaultChecked /> Tous les produits
                     </label>
                     {
-                        props.data.map(categorie => 
+                        props.data.Categories?.map(categorie => 
                             <label className="btn btn-default btn-sm" key={categorie.id} onClick={()=>props.handleChangeCategorie(categorie.nom_categorie)}>
                                 <input type="radio"  /> {categorie.nom_categorie}
                             </label>
+                            
                         )
                     }
                 </div>

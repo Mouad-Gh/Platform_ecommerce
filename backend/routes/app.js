@@ -12,6 +12,11 @@ const boutique=require("../controllers/boutique");
 const commande=require("../controllers/commande");
 const produit_specification=require('../controllers/produit_specification');
 const produits_souhaite=require("../controllers/produit_souhaite");
+const auth=require("../controllers/auth");
+//middleware
+const { authJwt } = require("../middleware");
+//passport
+const passport = require('passport');
 
 
 const multer=require("multer");
@@ -125,7 +130,7 @@ router.delete("/acheteur/:id",acheteur.deleteAchteur);
 router.get('/achteur/:id/commandes',acheteur.getAchteurCommandes);
 
 //Admins
-router.get("/admin/tous",admin.getAdmins);
+router.get("/admin/tous"/*,[passport.authenticate('jwt',{session:false}),authJwt.isAdmin]*/,admin.getAdmins);
 router.get("/admin/tous/:page(\\d+)/:page_size(\\d+)",admin.getAdminsByPage);
 router.get("/admin/find/:page(\\d+)/:page_size(\\d+)",admin.findAdmin);
 router.get("/admin/:id",admin.getAdmin);
@@ -156,5 +161,9 @@ router.get("/produits_souhaite/:id",produits_souhaite.getProduits_Souhaites);
 router.delete("/produits_souhaite/:id",produits_souhaite.supprimerProduits_Souhaites);
 router.post("/produits_souhaite/ajouter",produits_souhaite.ajouterProduits_Souhaites);
 
+
+//Authentifiction
+router.post('/login',auth.login);
+router.post('/inscription',auth.inscription);
 
 module.exports = router;

@@ -16,12 +16,6 @@ const Admin = () => {
                 <Route path={`${path}/Clients`}>
                     <Clients />
                 </Route>
-                <Route path={`${path}/Commandes`}>
-
-                </Route>
-                <Route path={`${path}/changermdp`}>
-
-                </Route>
                 {/* ajouter la route de Categorie */}
                 <Route path={`${path}/Categories`}>
                     <Categories />

@@ -39,11 +39,13 @@ const Categories = () => {
 
         e.preventDefault();
         axios.delete("http://localhost:3000/api/categorie/"+id).then(response => {
-            console.log((response.data))
-            const newList=categories.filter(p=>{
+            
+            const newList=categories.Categories.filter(p=>{
                 return p.id !== id;
             });
-            setCategories(newList);
+            let newCategories = JSON.parse(JSON.stringify(categories));
+            newCategories.Categories = newList;
+            setCategories(newCategories);
             toast.success('categorie est suprimée avec succès', { toastId: 1, autoClose: 4000 });
 
         })
