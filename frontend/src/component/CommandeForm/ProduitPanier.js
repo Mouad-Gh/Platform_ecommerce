@@ -12,7 +12,7 @@ const ProduitPanier = (props) => {
                         <div className="media-body">
                             <h2 className="h4 media-heading">{nom}</h2>
                             <label>{nom_categorie} </label>
-                            <p className="price">${PU}</p>
+                            <p className="price">{PU} DHs</p>
                         </div>
                         <div className="controls">
                             <div className="input-group">

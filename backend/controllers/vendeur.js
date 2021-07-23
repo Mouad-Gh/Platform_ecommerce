@@ -14,7 +14,8 @@ const acheteur = require("./achteur");
     });
  */
 exports.addVendeur = (req, res, next) => {
-
+    const hash = Utils.genHash(req.body.Mdp);
+    req.body.Mdp=hash;
     //ajouter un seul boutique avec le nouveau vendeur
     db.Utilisateur.create(req.body).then((utilisateur) => {
         db.Acheteur.create({ UtilisateurId: utilisateur.id }).then((acheteur) => {

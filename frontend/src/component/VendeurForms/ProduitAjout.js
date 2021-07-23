@@ -78,6 +78,7 @@ const ProduitAjout = (props) => {
 
     return ( 
         <div >
+            <hr className="offset-lg"/><hr className="offset-lg"/>
             {/* Titre de la page */}
             <div className="white">
                 <div className="container">

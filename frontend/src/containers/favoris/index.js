@@ -15,6 +15,7 @@ const Favoris = (props) => {
             <hr className="offset-lg" />
             <hr className="offset-lg" />
             <hr className="offset-lg hidden-xs" />
+            <h1>Favoris</h1>
             <div className="row">
                 <div className="col-sm-12">
                     <hr className="offset-lg" />

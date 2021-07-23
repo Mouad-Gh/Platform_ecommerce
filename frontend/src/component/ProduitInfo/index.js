@@ -19,8 +19,8 @@ const ProduitInfo = (props) => {
   return (
     <div className="col-sm-5 col-md-5 no-padding-xs">
       <div className="caption">
-        {//<img src="../assets/img/brands/microsoft.png" alt="Microsoft" className="brand hidden-xs hidden-sm" />
-        }
+        <img src="../assets/img/brands/microsoft.png" alt="Microsoft" className="brand hidden-xs hidden-sm" />
+        
 
         <h1>{nom}</h1>
 
@@ -31,8 +31,8 @@ const ProduitInfo = (props) => {
         <hr className="offset-sm visible-sm" />
         <hr className="offset-xs visible-sm" />
 
-        <p className="price">${PU} </p>
-        <p className="price through">$3 449.99</p>
+        <p className="price">{PU} Dhs </p>
+        
         <hr className="offset-md" />
 
         <button className="btn btn-primary rounded"
@@ -47,9 +47,9 @@ const ProduitInfo = (props) => {
             })
           }}
         >
-          <i className="ion-bag"></i> Add to cart
+          <i className="ion-bag"></i> Ajouter au panier
         </button>
-        <button className="btn btn-link" onClick={()=>{handleAjouterFavoris(id)}}> <i className="ion-ios-heart"></i> See later </button>
+        <button className="btn btn-link" onClick={()=>{handleAjouterFavoris(id)}}> <i className="ion-ios-heart"></i> ajouter aux favoris </button>
       </div>
     </div>
   );

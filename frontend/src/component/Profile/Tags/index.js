@@ -5,8 +5,10 @@ const Tags = (props) => {
         <div className="tags">
             <hr className="offset-lg" />
             <hr className="offset-lg" />
-            <hr className="offset-lg hidden-xs" />
+
+            
             <div className="container">
+            <h1>Profile</h1>
                 <div className="btn-group" data-toggle="buttons">
                     <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`${props.path}/informations`}>
                         <label className="btn btn-default btn-sm">

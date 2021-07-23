@@ -22,7 +22,7 @@ const Glissiere = () => {
                                         <h1 className="h3 colorful blue hidden-xs">Fournir léger et puissant</h1>
 
                                         <hr className="offset-sm" />
-                                        <h2 className="h1 lg upp colorful blue">nouveoux ORDINATEURS <br />PORTABLES INCROYABLES</h2>
+                                        <h2 className="h1 lg upp colorful blue">nouveoux  <br />ORDINATEURS</h2>
                                         <hr className="offset-md" />
                                         <hr className="offset-md" />
                                         <a href="./store/" rel="nofollow" className="btn btn-primary btn-lg black"> Plus d'ordinateurs portables </a>

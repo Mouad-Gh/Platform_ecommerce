@@ -1,8 +1,10 @@
 const db = require("../models");
 const utilisateur = require("../controllers/utilisateur");
-
+const Utils = require('../lib/Utils');
 
 exports.addAchteur = (req, res, next) => {
+    const hash = Utils.genHash(req.body.Mdp);
+    req.body.Mdp=hash;
     db.Utilisateur.create(req.body)
         .then((Utilisateur) => {
             db.Acheteur.create({ UtilisateurId: Utilisateur.id }).then((a) => {

@@ -21,7 +21,7 @@ const Produit = (props) => {
             <a onClick={()=>{handleAjouterFavoris(props.data.id)}} className="favorites" data-favorite="inactive"><i className="ion-ios-heart-outline"></i></a>
                 <Link to={"/produit/"+props.data.id}><img src={props.data.Produit_images[0].chemin_fichier} alt="produit_image" /></Link>
                 <div className="content align-center">
-                    <p className="price">{props.data.PU}</p>
+                    <p className="price">{props.data.PU} DH</p>
                     <h2 className="h3">{props.data.nom}</h2>
                     <hr className="offset-sm" />
 
@@ -37,7 +37,7 @@ const Produit = (props) => {
                                 img:props.data.Produit_images[0]?.chemin_fichier
                             })
                         }}>
-                        <i className="ion-bag"></i> Add to cart
+                        <i className="ion-bag"></i> Ajouter au panier
                     </button>
                 </div>
             </div>

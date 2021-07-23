@@ -1,5 +1,5 @@
 const db = require("../models");
-const bcrypt = require("bcrypt");
+const Utils = require('../lib/Utils');
 exports.addUtilisateur = (req, res, next) => {
     db.Utilisateur.create(req.body).then(() => {
         res.send('Utilisateur ajouté avec succès!');
@@ -150,14 +150,11 @@ exports.deleteUtilisateur = async (req, res) => {
 exports.updateMotDePasse = (req, res, next) => {
     const idRecherche = req.params.id;
     db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
-        const result = bcrypt.compareSync(req.body.MdpOld, utilisateur.Mdp);
+        const result = Utils.mdpEstValide(req.body.MdpOld, utilisateur.Mdp);
         if (result) {
-            bcrypt.genSalt(10, function (err, salt) {
-                bcrypt.hash(req.body.Mdp, salt, function (err, hash) {
-                    utilisateur.Mdp = hash;
-                    utilisateur.save();
-                });
-            });
+
+            utilisateur.Mdp = Utils.genHash(req.body.MdpOld);
+            utilisateur.save();
         }
         return result;
     }).then((success) => {

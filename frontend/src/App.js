@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from 'react';
@@ -15,6 +15,10 @@ import ProduitModification from './component/VendeurForms/ProduitListBoutique.js
 import Profile from './containers/Profile';
 import './App.css';
 import Admin from './containers/Admin';
+import Inscription from './containers/Inscription';
+import Login from './containers/Login';
+import PrivateRoute from './component/PrivateRoute'
+import { history } from './helpers/history';
 
 function App() {
 
@@ -76,7 +80,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router history={history}>
       <Layout>
         <Switch>
           <Route exact path="/">
@@ -108,13 +112,7 @@ function App() {
             />
             <Produit handleAjouterPanier={handleAjouterPanier} />
           </Route>
-          <Route path="/Favoris" >
-            <Panier data={produits}
-              handleSupprimerPanier={handleSupprimerPanier}
-              handleModfierPanier={handleModfierPanier}
-            />
-            <Favoris handleAjouterPanier={handleAjouterPanier} />
-          </Route>
+
           <Route path="/Vendeur/:id" > <Vendeur /> </Route>
           <Route path="/ajouter" > <ProduitAjout /> </Route>
           <Route path="/modifier" > <ProduitModification /> </Route>
@@ -128,6 +126,20 @@ function App() {
           <Route path="/Admin">
             <Admin />
           </Route>
+          <Route path="/Login">
+            <Login />
+          </Route>
+          <Route path="/Inscription">
+            <Inscription />
+          </Route>
+          <PrivateRoute path="/Favoris" >
+            <Panier data={produits}
+              handleSupprimerPanier={handleSupprimerPanier}
+              handleModfierPanier={handleModfierPanier}
+            />
+            <Favoris handleAjouterPanier={handleAjouterPanier} />
+          </PrivateRoute>
+
         </Switch>
         <ToastContainer />
       </Layout>

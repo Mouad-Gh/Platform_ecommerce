@@ -54,7 +54,7 @@ const Panier = (props) => {
                                     </span>
                                 </div>
 
-                                <a onClick={()=>{props.handleSupprimerPanier(produit.id)}}> <i className="ion-trash-b"></i> Remove </a>
+                                <a onClick={()=>{props.handleSupprimerPanier(produit.id)}}> <i className="ion-trash-b"></i> Supprimer </a>
                             </div>
                         </div>
                     )}

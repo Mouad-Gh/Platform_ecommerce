@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SearchBox from './SearchBox'
 const Navbar = () => {
     const [activeItem,setActiveItem] = useState(0);
-    const [items] = useState(['Accueil','Store','Contact']);
+    const [items] = useState(['Accueil','Store']);
 
     const handleItemClick =(index)=>{
         setActiveItem(index);
@@ -19,7 +19,7 @@ const Navbar = () => {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <Link className="navbar-brand" to="/" >Unistore Pro</Link>
+                        <Link className="navbar-brand" to="/" >E-Boutique</Link>
                         <a className="navbar-brand pull-right hidden-sm hidden-md hidden-lg" href="#open-cart"> <i className="ion-bag"></i> 7 </a>
                     </div>
 

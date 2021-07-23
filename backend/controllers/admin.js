@@ -2,6 +2,8 @@ const db = require("../models");
 const utilisateur = require("../controllers/utilisateur");
 
 exports.addAdmin = (req, res, next) => {
+    const hash = Utils.genHash(req.body.Mdp);
+    req.body.Mdp=hash;
     db.Utilisateur.create(req.body)
         .then((Utilisateur) => {
             db.Admin.create({ UtilisateurId: Utilisateur.id }).then(() => {

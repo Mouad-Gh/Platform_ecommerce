@@ -24,7 +24,7 @@ const produit = (props) => {
                 <Link to={"/produit/"+props.data.id}><img src={props.data.Produit_images[0].chemin_fichier} alt="produit_image" /></Link>
                 <div className="content">
                     <h1 className="h3">{props.data.nom}</h1>
-                    <p className="price">{props.data.PU}</p>
+                    <p className="price">{props.data.PU} DHs</p>
                     <label>{props.data.Categorie.nom_categorie}</label>
 
                     <button className="btn btn-link"><Link to={'/Produit/'+props.data.id}><i className="ion-android-open"></i>  Details</Link></button>
