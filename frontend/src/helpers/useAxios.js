@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-
+import {authHeader} from '../helpers/auth-header';
 
 const useAxios = (url) => {
 
@@ -11,6 +11,7 @@ const useAxios = (url) => {
         const source = cancelToken.source();
         axios.get(url,{
             cancelToken: source.token,
+            headers: authHeader()
           }).then(res=>{
             console.log(res.data.results);
             setData(res.data);

@@ -4,7 +4,11 @@ const Produit_images = require("../models/Produit_images");
 const produit_image = require("./produit_image");
 const produit_specification= require("./produit_specification");
 
-exports.addProduit= (req,res,next)=>{
+exports.addProduit= async (req,res,next)=>{
+    const acheteur = await req.user.getAcheteur();
+    const vendeur = await acheteur.getVendeur();
+    const boutique = await vendeur.getBoutiques();
+    req.body.BoutiqueId = boutique[0].id;
     db.Produit.create(req.body).then((produit)=>{
         req.body.ProduitId=produit.id;
         console.log(req.body.specifications);

@@ -39,23 +39,31 @@ exports.getBoutiques = (req,res,next) => {
     });
 }
 
-exports.getBoutique = (req,res,next) =>{
-    db.Boutique.findOne({
-        where:{id:req.params.id},
-        include: [{
-            model: db.Produit,
-            include: db.Produit_image
-          },{
-              model: db.Vendeur
-            }]
-        
-    })
-    .then(Boutique => {
-        res.send(Boutique);
-    })
-    .catch(err => {
-        next(err);
-    });
+exports.getBoutique = async (req,res,next) =>{
+    const acheteur = await req.user.getAcheteur(); 
+    
+    if(acheteur){
+        const vendeur = await acheteur.getVendeur();
+        if(vendeur){
+            db.Boutique.findOne({
+                where:{VendeurId:vendeur.id},
+                include: [{
+                    model: db.Produit,
+                    include: db.Produit_image
+                  },{
+                      model: db.Vendeur
+                    }]
+                
+            })
+            .then(Boutique => {
+                res.send(Boutique);
+            })
+            .catch(err => {
+                next(err);
+            });
+        }
+    }
+
 }
 
 exports.UpdateBoutique = (req,res,next)=>{

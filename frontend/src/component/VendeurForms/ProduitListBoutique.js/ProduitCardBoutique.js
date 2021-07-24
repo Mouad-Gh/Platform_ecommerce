@@ -12,7 +12,7 @@ const ProduitCardBoutique = (props) => {
         })
     }
   return (  
-      <div className="col-sm-6 col-md-3 product" >
+      <div className="col-sm-6 col-md-4 product" >
          <div className="body">
           <a href="#favorites" className="favorites" data-favorite="inactive"><i className="ion-ios-heart-outline"></i></a>
           <a href="./"><img src={props.produit.Produit_images[0].chemin_fichier} alt={props.produit.nom} /></a>

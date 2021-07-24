@@ -4,6 +4,8 @@ import axios from "axios";
 import ProduitSpecifications from "./produitSpecifications";
 import useFetch from "../../helpers/useFetch";
 import { useLocation, useParams } from "react-router-dom";
+import { authHeader } from "../../helpers/auth-header";
+import { toast } from 'react-toastify';
 
 const ProduitAjout = (props) => {
     const location= useLocation();
@@ -68,8 +70,11 @@ const ProduitAjout = (props) => {
         }
         
         axios.post("http://localhost:3000/api/produit/ajouter", formData, {
+            headers:authHeader()
         }).then(response => {
-            console.log((response.data))
+            if(response.data){
+                toast.success('Le produit a été ajouté', { toastId: 2, autoClose: 6000 });
+            }
         })
 
 

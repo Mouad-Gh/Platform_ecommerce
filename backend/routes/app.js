@@ -82,7 +82,7 @@ router.get("/categorie/:nom/produits/:page(\\d+)/:page_size(\\d+)",categorie.get
 //rechercher une categorie par son nom
 router.get("/categorie/nom/:nom",categorie.getCategorieByName);
 //Produit
-router.post("/produit/ajouter",upload.array("imagesArray",8),produit.addProduit);
+router.post("/produit/ajouter",[passport.authenticate('jwt',{session:false}),upload.array("imagesArray",8)],produit.addProduit);
 router.get("/produit/tous",produit.getProduits);
 router.get("/produit/:id",produit.getProduit);
 
@@ -110,38 +110,38 @@ router.delete("/produit_specification/:id",produit_specification.deleteProduit_s
 
 //Vendeur
 router.post("/vendeur/ajouter",vendeur.addVendeur);
-router.get("/vendeur/tous",vendeur.getVendeurs);
-router.get("/vendeur/tous/:page(\\d+)/:page_size(\\d+)",vendeur.getVendeursByPage);
+router.get("/vendeur/tous",[passport.authenticate('jwt',{session:false})],vendeur.getVendeurs);
+router.get("/vendeur/tous/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],vendeur.getVendeursByPage);
 router.get("/vendeur/:id",vendeur.getVendeur);
-router.put("/vendeur/:id",vendeur.updateVendeur);
-router.delete("/vendeur/:id",vendeur.deleteVendeur);
-router.get("/vendeur/find/:page(\\d+)/:page_size(\\d+)",vendeur.findVendeur);
+router.put("/vendeur/:id",[passport.authenticate('jwt',{session:false})],vendeur.updateVendeur);
+router.delete("/vendeur/:id",[passport.authenticate('jwt',{session:false})],vendeur.deleteVendeur);
+router.get("/vendeur/find/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],vendeur.findVendeur);
 
 
 //Achteurs
-router.get("/acheteur/tous",acheteur.getAcheteurs);
-router.get("/acheteur/tous/:page(\\d+)/:page_size(\\d+)",acheteur.getAcheteursByPage);
-router.get("/acheteur/find/:page(\\d+)/:page_size(\\d+)",acheteur.findAcheteurs);
+router.get("/acheteur/tous",[passport.authenticate('jwt',{session:false})],acheteur.getAcheteurs);
+router.get("/acheteur/tous/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],acheteur.getAcheteursByPage);
+router.get("/acheteur/find/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],acheteur.findAcheteurs);
 router.get("/acheteur/:id",acheteur.getAcheteur);
 router.post("/acheteur/ajouter",acheteur.addAchteur);
-router.put("/acheteur/:id",acheteur.UpdateAchteur);
-router.delete("/acheteur/:id",acheteur.deleteAchteur);
+router.put("/acheteur/:id",[passport.authenticate('jwt',{session:false})],acheteur.UpdateAchteur);
+router.delete("/acheteur/:id",[passport.authenticate('jwt',{session:false})],acheteur.deleteAchteur);
 //obtenir les commandes des utilisateurs
 router.get('/achteur/:id/commandes',[passport.authenticate('jwt',{session:false})],acheteur.getAchteurCommandes);
 
 //Admins
-router.get("/admin/tous"/*,[passport.authenticate('jwt',{session:false}),authJwt.isAdmin]*/,admin.getAdmins);
-router.get("/admin/tous/:page(\\d+)/:page_size(\\d+)",admin.getAdminsByPage);
-router.get("/admin/find/:page(\\d+)/:page_size(\\d+)",admin.findAdmin);
+router.get("/admin/tous",[passport.authenticate('jwt',{session:false}),authJwt.isAdmin],admin.getAdmins);
+router.get("/admin/tous/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],admin.getAdminsByPage);
+router.get("/admin/find/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],admin.findAdmin);
 router.get("/admin/:id",admin.getAdmin);
-router.post("/admin/ajouter",admin.addAdmin);
-router.put("/admin/:id",admin.UpdateAdmin);
-router.delete("/admin/:id",admin.deleteAdmin);
+router.post("/admin/ajouter",[passport.authenticate('jwt',{session:false})],admin.addAdmin);
+router.put("/admin/:id",[passport.authenticate('jwt',{session:false})],admin.UpdateAdmin);
+router.delete("/admin/:id",[passport.authenticate('jwt',{session:false})],admin.deleteAdmin);
 
 //Boutique
 router.get("/boutique/tous",boutique.getBoutiques);
 router.get("/boutique/tous/:page(\\d+)/:page_size(\\d+)",boutique.getBoutiquesByPage);
-router.get("/boutique/:id",boutique.getBoutique);
+router.get("/boutique/:id",[passport.authenticate('jwt',{session:false})],boutique.getBoutique);
 router.post("/boutique/ajouter",boutique.addBoutique);
 router.put("/boutique/:id",boutique.UpdateBoutique);
 router.delete("/boutique/:id",boutique.deleteBoutique);
