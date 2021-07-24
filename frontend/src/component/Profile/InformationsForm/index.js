@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import useFetch from '../../../helpers/useFetch';
 import ScriptTag from 'react-script-tag/lib/ScriptTag';
 import { toast } from 'react-toastify';
+import { authenticationService } from '../../../services/authenticationService';
+import {authHeader} from '../../../helpers/auth-header';
 const InformationsFrom = () => {
-    const { data: informations } = useFetch('http://localhost:3000/api/utilisateur/2');
+    const { data: informations } = useFetch('http://localhost:3000/api/utilisateur/'+authenticationService.currentUserValue.utilisateur.id);
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
     const [sexe, setSexe] = useState();
     const [dateNaissance, setDateNaissance] = useState();
     const [adress, setAdress] = useState();
     const [email, setEmail] = useState();
-
+    console.log(authenticationService.currentUserValue);
     useEffect(() => {
         setNom(informations.Nom);
         setPrenom(informations.Prenom);
@@ -23,9 +25,9 @@ const InformationsFrom = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         const data = { Nom: nom, Prenom: prenom, Sexe: sexe, DateNaissance: dateNaissance, Adress: adress, Email: email }
-        fetch('http://localhost:3000/api/utilisateur/2', {
+        fetch('http://localhost:3000/api/utilisateur/'+authenticationService.currentUserValue.utilisateur.id, {
             method: 'PUT',
-            headers: { "Content-Type": "application/json" },
+            headers: authHeader(),
             body: JSON.stringify(data)
         }).then((res) => {
             toast.success('vos informations est modifiées avec succès', { toastId: 1, autoClose: 4000 });

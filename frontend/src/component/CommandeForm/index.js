@@ -15,7 +15,7 @@ const CommandeForm = (props) => {
         let produits=[];
         ProduitsPanier.forEach(produit=>{
             //console.log(produit.PU);
-            to+=produit.PU;
+            to+=produit.PU * produit.qte;
             let prod={};
             prod.id=produit.id;
             prod.qte=produit.qte;

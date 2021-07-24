@@ -114,16 +114,16 @@ function App() {
             <Produit handleAjouterPanier={handleAjouterPanier} />
           </Route>
 
-          <PrivateRoute path="/Vendeur/:id" > <Vendeur /> </PrivateRoute>
+          <Route path="/Vendeur/:id" > <Vendeur /> </Route>
           <PrivateRoute path="/ajouter" > <ProduitAjout /> </PrivateRoute>
           <PrivateRoute path="/modifier" > <ProduitModification /> </PrivateRoute>
-          <PrivateRoute path="/Profile" >
+          <Route path="/Profile" >
             <Panier data={produits}
               handleSupprimerPanier={handleSupprimerPanier}
               handleModfierPanier={handleModfierPanier}
             />
             <Profile handleAjouterPanier={handleAjouterPanier} />
-          </PrivateRoute>
+          </Route>
           <Route path="/Login">
             <Login />
           </Route>

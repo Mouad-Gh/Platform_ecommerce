@@ -73,14 +73,14 @@ exports.getUtilisateursByPage = async (req, res) => {
 }
 
 exports.getUtilisateur = (req, res) => {
-    const idRecherche = req.params.id;
+    const idRecherche = req.user.id;
     db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
         res.send(utilisateur);
     });
 };
 
 exports.updateUtilisateur = (req, res) => {
-    const idRecherche = req.params.id;
+    const idRecherche = req.user.id;
     db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
         utilisateur.Adress = req.body.Adress;
         utilisateur.Nom = req.body.Nom;
@@ -148,12 +148,12 @@ exports.deleteUtilisateur = async (req, res) => {
 };
 
 exports.updateMotDePasse = (req, res, next) => {
-    const idRecherche = req.params.id;
+    const idRecherche = req.user.id;
     db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
         const result = Utils.mdpEstValide(req.body.MdpOld, utilisateur.Mdp);
         if (result) {
 
-            utilisateur.Mdp = Utils.genHash(req.body.MdpOld);
+            utilisateur.Mdp = Utils.genHash(req.body.Mdp);
             utilisateur.save();
         }
         return result;

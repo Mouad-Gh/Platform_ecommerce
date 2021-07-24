@@ -113,8 +113,8 @@ exports.deleteAchteur = (req, res, next) => {
 }
 
 exports.getAchteurCommandes = (req, res, next) => {
-    db.Acheteur.findByPk(req.params.id)
-        .then((achteur) => {
+    req.user.getAcheteur().then((achteur) => {
+        if(achteur){
             achteur.getCommandes({
                 include: [{
                     model: db.Produit,
@@ -128,6 +128,10 @@ exports.getAchteurCommandes = (req, res, next) => {
             }).then((cmds) => {
                 res.send(cmds);
             });
+        }
+        else{
+            res.send(null);
+        }
         })
         .catch(err => {
             next(err);

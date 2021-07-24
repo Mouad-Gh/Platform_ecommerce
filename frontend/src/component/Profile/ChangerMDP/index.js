@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
+import {authHeader } from  '../../../helpers/auth-header'
 const ChangerMDP = () => {
     const [mdpActuel,setMdpActuel]  = useState();
     const [mdpNew,setMdpNew] = useState();
@@ -11,11 +12,12 @@ const ChangerMDP = () => {
         if(mdpNew2 !== mdpNew){
             toast.warning('les mots de passe ne correspondent pas', { toastId: 1, autoClose: 3000 });
         }
-        else{
+        else{ 
             const data = { MdpOld:mdpActuel,Mdp:mdpNew };
+            console.log(data);
             fetch('http://localhost:3000/api/utilisateur/changerMDP/2', {
                 method: 'PUT',
-                headers: { "Content-Type": "application/json" },
+                headers: authHeader(),
                 body: JSON.stringify(data)
             }).then((res) => res.json())
             .then(res => {

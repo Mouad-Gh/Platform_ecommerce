@@ -39,7 +39,7 @@ const CommandeList = () => {
                                         <div className="media-body">
                                             <h2 className="h4 media-heading">{produit.nom}</h2>
                                             <label>Tablets</label>
-                                            <p className="price">${produit.PU}</p>
+                                            <p className="price">{produit.PU} Dhs</p>
                                         </div>
                                         <div className="controls ">
                                             <br />

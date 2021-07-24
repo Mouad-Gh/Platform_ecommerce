@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-
+import {authHeader} from '../helpers/auth-header';
 const useFetch = (url) =>{
 
     const [data, setData] = useState([]);
     useEffect(()=>{
         const abortCont = new AbortController();
         
-
-        fetch(url,{signal:abortCont.signal})
+        const opt = {};
+        opt.headers= authHeader();
+        opt.signal=abortCont.signal;
+        fetch(url,opt)
         .then(res =>{
             return res.json();
         })

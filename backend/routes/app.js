@@ -54,12 +54,12 @@ router.post("/upload",upload.array("imagesArray",8),produit_image.uploadImages);
 router.post("/utilisateur/ajouter",utilisateur.addUtilisateur);
 router.get("/utilisateur/tous",utilisateur.getUtilisateurs);
 router.get("/utilisateur/tous/:page(\\d+)/:page_size(\\d+)",utilisateur.getUtilisateursByPage);
-router.get("/utilisateur/:id",utilisateur.getUtilisateur);
-router.put("/utilisateur/:id",utilisateur.updateUtilisateur);
+router.get("/utilisateur/:id",[passport.authenticate('jwt',{session:false})],utilisateur.getUtilisateur);
+router.put("/utilisateur/:id",[passport.authenticate('jwt',{session:false})],utilisateur.updateUtilisateur);
 router.delete("/utilisateur/:id",utilisateur.deleteUtilisateur);
 router.get("/utilisateur/find/:page(\\d+)/:page_size(\\d+)",utilisateur.findUtilisateur);
 //modifier le mdp
-router.put('/utilisateur/changerMDP/:id',utilisateur.updateMotDePasse);
+router.put('/utilisateur/changerMDP/:id',[passport.authenticate('jwt',{session:false})],utilisateur.updateMotDePasse);
 //Marque
 router.post("/marque/ajouter",marque.addMarque);
 router.get("/marque/tous",marque.getMarques);
@@ -127,7 +127,7 @@ router.post("/acheteur/ajouter",acheteur.addAchteur);
 router.put("/acheteur/:id",acheteur.UpdateAchteur);
 router.delete("/acheteur/:id",acheteur.deleteAchteur);
 //obtenir les commandes des utilisateurs
-router.get('/achteur/:id/commandes',acheteur.getAchteurCommandes);
+router.get('/achteur/:id/commandes',[passport.authenticate('jwt',{session:false})],acheteur.getAchteurCommandes);
 
 //Admins
 router.get("/admin/tous"/*,[passport.authenticate('jwt',{session:false}),authJwt.isAdmin]*/,admin.getAdmins);
