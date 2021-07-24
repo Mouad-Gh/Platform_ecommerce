@@ -8,10 +8,12 @@ exports.login = (req,res,next)=>{
         }
     })
     .then(async (utilisateur)=>{
+
         if(!utilisateur){
             res.status(400).json({
                 message:'E-mail n\'existe pas',
             });
+            return;
         }
         const mdpEstValide = Utils.mdpEstValide(req.body.Mdp,utilisateur.Mdp);
         if(mdpEstValide){

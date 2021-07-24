@@ -4,7 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
 const ModifierForm = (props) => {
-    const { data:utilisateur } = useFetch('http://localhost:3000/api/utilisateur/'+props.utilisateurId);
+    
+    const { data:utilisateur } = useFetch('http://localhost:3000/api/utilisateur/'+props.utilisateurId+'/info');
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [sexe, setSexe] = useState('Homme');
@@ -21,10 +22,9 @@ const ModifierForm = (props) => {
             let dateJS = new Date(Date.parse(dateMysql));
             setdtn(dateJS);
         }
-        
-        
         setAdress(utilisateur.Adress);
         setEmail(utilisateur.Email);
+        
     },[utilisateur]);
 
     const handleOnSubmit = (e)=>{
@@ -46,16 +46,16 @@ const ModifierForm = (props) => {
                         <div className="modal-body">
                             <div className="form-group">
                                 <label>Nom</label>
-                                <input type="text" className="form-control" required onChange={(e) => { setNom(e.target.value) }} defaultValue={utilisateur.Nom} />
+                                <input type="text" className="form-control" required onChange={(e) => { setNom(e.target.value) }} value={nom} />
                             </div>
                             <div className="form-group">
                                 <label>Prenom</label>
-                                <input type="text" className="form-control" required onChange={(e) => { setPrenom(e.target.value) }} defaultValue={utilisateur.Prenom} />
+                                <input type="text" className="form-control" required onChange={(e) => { setPrenom(e.target.value) }} value={prenom} />
                             </div>
                             <div className="form-group">
                                 <label>Sexe</label>
                                 <div className="group-select justify" tabIndex='1'>
-                                    <input className="form-control select" id="paiement" name="sexe" defaultValue={utilisateur.Sexe}  placeholder="" required="" />
+                                    <input className="form-control select" id="paiement" name="sexe" defaultValue={sexe}  placeholder="" required="" />
 
                                     <ul className="dropdown">
                                         <li data-value="Homme" onClick={(e) => { setSexe('Homme') }}>Homme</li>
@@ -67,11 +67,11 @@ const ModifierForm = (props) => {
                             </div>
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="text" className="form-control" required defaultValue={utilisateur.Email}  onChange={(e) => { setEmail(e.target.value) }} />
+                                <input type="text" className="form-control" required value={email}  onChange={(e) => { setEmail(e.target.value) }} />
                             </div>
                             <div className="form-group">
                                 <label>Address</label>
-                                <textarea className="form-control" required defaultValue={utilisateur.Adress}  onChange={(e) => { setAdress(e.target.value) }}></textarea>
+                                <textarea className="form-control" required value={adresse}  onChange={(e) => { setAdress(e.target.value) }}></textarea>
                             </div>
                             <div className="form-group">
                                 <label>Date De naissance</label>

@@ -8,11 +8,16 @@ const TopLink = (props) => {
         if(authenticationService.currentUserValue){
             setCurrentUser(authenticationService.currentUserValue.utilisateur);
         }
-        console.log(currentUser);
     },[]);
+
+    const handleLogOut=()=>{
+        authenticationService.logout();
+        window.location.reload();
+    }
     return (
         <>
             <div className="toplinks">
+             {currentUser && <a onClick={handleLogOut}> Se déconnecter</a>}
              {currentUser && <Link to="/Profile"><i className="ion-person"></i> {currentUser.Nom+' '+currentUser.Prenom}</Link>}
              {!currentUser &&  <Link to="/Inscription"><i className="ion-person"></i> Inscription </Link>}
              {!currentUser && <Link to="/Login"><i className="ion-unlocked"></i> Connexion</Link>}

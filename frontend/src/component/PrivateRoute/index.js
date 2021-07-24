@@ -3,9 +3,16 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { authenticationService } from '../../services/authenticationService';
 
-const PrivateRoute = (props) => (
+const PrivateRoute = (props) =>{ 
+    let role;
+    if(authenticationService.currentUserValue){
+        role= authenticationService.currentUserValue.utilisateur.role;
+    }
+    let roleIsValide= props.role===role || !props.role;
+    console.log(authenticationService.currentUserValue);
+    return(
     <Fragment>
-        {authenticationService.currentUserValue ? props.children : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
+        {authenticationService.currentUserValue && roleIsValide ? props.children : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
     </Fragment>
         /*
         if (roles && roles.indexOf(currentUser.role) === -1) {
@@ -15,6 +22,6 @@ const PrivateRoute = (props) => (
 
         */
 
-)
+)}
 
 export default PrivateRoute;

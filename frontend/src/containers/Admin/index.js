@@ -11,17 +11,17 @@ const Admin = () => {
         <div>
             <Tags path={path} />
             <Switch>
-                <PrivateRoute exact path={path}>
+                <PrivateRoute role="admin" exact path={path}>
                     <Redirect exact  from="/" to={`${path}/Clients`} />
                 </PrivateRoute>
-                <PrivateRoute exact path={`${path}/Clients`}>
+                <PrivateRoute role="admin" exact path={`${path}/Clients`}>
                     <Clients />
                 </PrivateRoute>
                 {/* ajouter la route de Categorie */}
-                <PrivateRoute path={`${path}/Categories`}>
+                <PrivateRoute role="admin" path={`${path}/Categories`}>
                     <Categories />
                 </PrivateRoute>
-                <PrivateRoute path={`${path}/Marques`}>
+                <PrivateRoute role="admin" path={`${path}/Marques`}>
                     <Marques />
                 </PrivateRoute>
             </Switch>

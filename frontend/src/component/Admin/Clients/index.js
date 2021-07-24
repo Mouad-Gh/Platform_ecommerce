@@ -9,6 +9,7 @@ import RechercherForm from './RechercherForm';
 import ModifierForm from './ModifierForm';
 import axios from 'axios';
 import Pagination from './Pagination';
+import { authHeader } from '../../../helpers/auth-header';
 
 
 const Clients = () => {
@@ -21,7 +22,7 @@ const Clients = () => {
     
     const refreshData = (page = 1) => {
         const abortCont = new AbortController();
-        var config = { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' } };
+        var config = { headers: authHeader() };
         console.log('http://localhost:3000/api/' + role + '/tous/' + CURRENT_PAGE + '/' + PAGE_SIZE);
         axios('http://localhost:3000/api/' + role + '/tous/' + CURRENT_PAGE + '/' + PAGE_SIZE, config)
             .then((data) => {

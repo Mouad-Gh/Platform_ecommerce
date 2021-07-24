@@ -1,13 +1,15 @@
+const { authHeader } = require("../helpers/auth-header");
+
+
 exports.ajouterUtilisateur = (body, role) => {
     const abortCont = new AbortController();
     let url = 'http://localhost:3000/api/' + role + '/ajouter';
+    console.log(authHeader());
     return fetch(url,
         {
             signal: abortCont.signal,
             method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
+            headers: authHeader(),
             body: JSON.stringify(body)
         }
     )
@@ -34,9 +36,7 @@ exports.RechercherUtilisateur = (body, role, page) => {
         {
             signal: abortCont.signal,
             method: 'GET',
-            headers: {
-                'Content-type': 'application/json'
-            }
+            headers: authHeader(),
         }
     )
         .then(res => res.json())
@@ -62,9 +62,7 @@ exports.getUtilisateurs = (role, page) => {
         {
             signal: abortCont.signal,
             method: 'GET',
-            headers: {
-                'Content-type': 'application/json'
-            }
+            headers: authHeader(),
         }
     )
         .then(res => res.json())
@@ -83,14 +81,12 @@ exports.getUtilisateurs = (role, page) => {
 
 exports.updateUtilisateur = (body, id, role) => {
     const abortCont = new AbortController();
-    let url = 'http://localhost:3000/api/utilisateur/' + id;
+    let url = 'http://localhost:3000/api/utilisateur/' + id+'/info';
     return fetch(url,
         {
             signal: abortCont.signal,
             method: 'PUT',
-            headers: {
-                'Content-type': 'application/json'
-            },
+            headers: authHeader(),
             body: JSON.stringify(body)
         }
     )
@@ -116,9 +112,7 @@ exports.deleteUtilisateur = (id) => {
         {
             signal: abortCont.signal,
             method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            }
+            headers: authHeader(),
         }
     )
         .then(res => res.json())

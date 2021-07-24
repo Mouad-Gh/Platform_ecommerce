@@ -52,12 +52,14 @@ router.post("/upload",upload.array("imagesArray",8),produit_image.uploadImages);
 
 //Utilisateur
 router.post("/utilisateur/ajouter",utilisateur.addUtilisateur);
-router.get("/utilisateur/tous",utilisateur.getUtilisateurs);
-router.get("/utilisateur/tous/:page(\\d+)/:page_size(\\d+)",utilisateur.getUtilisateursByPage);
+router.get("/utilisateur/tous",[passport.authenticate('jwt',{session:false})],utilisateur.getUtilisateurs);
+router.get("/utilisateur/tous/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],utilisateur.getUtilisateursByPage);
 router.get("/utilisateur/:id",[passport.authenticate('jwt',{session:false})],utilisateur.getUtilisateur);
+router.get("/utilisateur/:id/info",[passport.authenticate('jwt',{session:false})],utilisateur.getUtilisateur2);
 router.put("/utilisateur/:id",[passport.authenticate('jwt',{session:false})],utilisateur.updateUtilisateur);
-router.delete("/utilisateur/:id",utilisateur.deleteUtilisateur);
-router.get("/utilisateur/find/:page(\\d+)/:page_size(\\d+)",utilisateur.findUtilisateur);
+router.put("/utilisateur/:id/info",[passport.authenticate('jwt',{session:false})],utilisateur.updateUtilisateur2);
+router.delete("/utilisateur/:id",[passport.authenticate('jwt',{session:false})],utilisateur.deleteUtilisateur);
+router.get("/utilisateur/find/:page(\\d+)/:page_size(\\d+)",[passport.authenticate('jwt',{session:false})],utilisateur.findUtilisateur);
 //modifier le mdp
 router.put('/utilisateur/changerMDP/:id',[passport.authenticate('jwt',{session:false})],utilisateur.updateMotDePasse);
 //Marque

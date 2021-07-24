@@ -28,8 +28,10 @@ const Inscription = () => {
                 DateNaissance: dtn.toISOString().slice(0, 19).replace('T', ' '), Adress: adresse,
                 Email: email, Mdp: mdp, nom_boutique: nomDeBoutique
             };
+            console.log(data);
             AdminActions.ajouterUtilisateur(data, role).then((res) => {
                 if (res) {
+                    console.log(res);
                     toast.success('vous avez été enregistré avec succès vous pouvez vous connecter maintenant', { toastId: 1, autoClose: 6000 });
                     history.push('/login');
                 }

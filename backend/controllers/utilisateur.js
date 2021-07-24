@@ -79,6 +79,9 @@ exports.getUtilisateur = (req, res) => {
     });
 };
 
+
+
+
 exports.updateUtilisateur = (req, res) => {
     const idRecherche = req.user.id;
     db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
@@ -94,6 +97,28 @@ exports.updateUtilisateur = (req, res) => {
     })
 };
 
+//pour admin
+exports.getUtilisateur2 = (req, res) => {
+    const idRecherche = req.params.id;
+    db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
+        res.send(utilisateur);
+    });
+};
+//pour admin
+exports.updateUtilisateur2 = (req, res) => {
+    const idRecherche = req.params.id;
+    db.Utilisateur.findOne({ where: { id: idRecherche } }).then((utilisateur) => {
+        utilisateur.Adress = req.body.Adress;
+        utilisateur.Nom = req.body.Nom;
+        utilisateur.Prenom = req.body.Prenom;
+        utilisateur.Sexe = req.body.Sexe;
+        utilisateur.DateNaissance = req.body.DateNaissance;
+        utilisateur.Email = req.body.Email;
+        utilisateur.save().then(() => {
+            res.send({ message: 'succees' });
+        });
+    })
+};
 
 exports.findUtilisateur = (req, res, next) => {
     const page = req.params.page;
