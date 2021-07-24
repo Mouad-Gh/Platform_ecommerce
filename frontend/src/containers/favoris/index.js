@@ -5,7 +5,7 @@ import ScriptTag from 'react-script-tag/lib/ScriptTag';
 import { Link } from 'react-router-dom';
 const Favoris = (props) => {
     const { data: produits, setData } = useFetch('http://localhost:3000/api/produits_souhaite/2');
-
+    console.log(produits);
     const handleSuppimer = (id) => {
         FavorisActions.supprimerProduit_souhaite(id).then((res) => setData(res));
     }

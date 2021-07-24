@@ -9,19 +9,57 @@ import { history } from '../../helpers/history';
 
 const Inscription = () => {
 
-    const [nom, setNom] = useState();
-    const [prenom, setPrenom] = useState();
+    const [nom, setNom] = useState();//
+    const [prenom, setPrenom] = useState();//
     const [sexe, setSexe] = useState('Homme');
     const [dtn, setdtn] = useState(new Date());
-    const [adresse, setAdress] = useState();
-    const [email, setEmail] = useState();
+    const [adresse, setAdress] = useState();//
+    const [email, setEmail] = useState();//
     const [mdp, setMdp] = useState();
     const [Cmdp, setCmdp] = useState();
     const [role, setRole] = useState('acheteur');
     const [nomDeBoutique, setNomDeBoutique] = useState();
 
+    const formValidation = () => {
+        if(nom.length ==0 || !nom.trim()){
+            toast.error('le nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        if(prenom.length ==0 || !prenom.trim()){
+            toast.error('le prenom ne peut pas être vide', { toastId: 2, autoClose: 6000 });
+            return false;
+        }
+        if(nom.length ==0 || !nom.trim()){
+            toast.error('le nom ne peut pas être vide', { toastId: 3, autoClose: 6000 });
+            return false;
+        }
+        if(adresse.length ==0 || !adresse.trim()){
+            toast.error('adress ne peut pas être vide', { toastId: 4, autoClose: 6000 });
+            return false;
+        }
+        if(email.length ==0 || !email.trim()){
+            toast.error('email ne peut pas être vide', { toastId: 5, autoClose: 6000 });
+            return false;
+        }
+        if(mdp.length ==0 || !mdp.trim()){
+            toast.error('mot de passe ne peut pas être vide', { toastId: 6, autoClose: 6000 });
+            return false;
+        }
+        if(role==='vendeur'){
+            if(nomDeBoutique.length ==0 || !nomDeBoutique.trim()){
+                toast.error('nom de boutique ne peut pas être vide', { toastId: 7, autoClose: 6000 });
+                return false;
+            }
+        }
+        return true;
+    }
+
     const handleOnSubmit = (e)=>{
         e.preventDefault();
+        if(!formValidation()){
+            return false;
+        }
         if(mdp === Cmdp ){
             const data = {
                 Nom: nom, Prenom: prenom, Sexe: sexe,

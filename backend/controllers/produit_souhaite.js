@@ -2,7 +2,7 @@ const db = require("../models");
 
 
 exports.getProduits_Souhaites = async (req, res, next) => {
-    db.Acheteur.findByPk(req.params.id).then(async (achteur) => {
+    db.Acheteur.findOne({where:{UtilisateurId:req.user.id}}).then(async (achteur) => {
         const produits = await achteur.getProduits({
             include: ['Categorie', {
                 model: db.Produit_image,
@@ -19,7 +19,7 @@ exports.getProduits_Souhaites = async (req, res, next) => {
 }
 
 exports.supprimerProduits_Souhaites = async (req, res, next) => {
-    db.Acheteur.findByPk(2).then(async (achteur) => {
+    db.Acheteur.findOne({where:{UtilisateurId:req.user.id}}).then(async (achteur) => {
         let produits = await achteur.getProduits({
             where: {
                 id: req.params.id
@@ -43,7 +43,7 @@ exports.supprimerProduits_Souhaites = async (req, res, next) => {
 
 
 exports.ajouterProduits_Souhaites = async (req, res, next) => {
-    db.Acheteur.findByPk(2).then(async (achteur) => {
+    db.Acheteur.findOne({where:{UtilisateurId:req.user.id}}).then(async (achteur) => {
         let produit =await db.Produit.findByPk(req.body.ProduitId);
         const response = await achteur.addProduit(produit);
         if(response){

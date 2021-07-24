@@ -4,26 +4,58 @@ import ScriptTag from 'react-script-tag/lib/ScriptTag';
 import { toast } from 'react-toastify';
 import { authenticationService } from '../../../services/authenticationService';
 import {authHeader} from '../../../helpers/auth-header';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./style.css";
 const InformationsFrom = () => {
     const { data: informations } = useFetch('http://localhost:3000/api/utilisateur/'+authenticationService.currentUserValue.utilisateur.id);
-    const [nom, setNom] = useState();
-    const [prenom, setPrenom] = useState();
-    const [sexe, setSexe] = useState();
-    const [dateNaissance, setDateNaissance] = useState();
-    const [adress, setAdress] = useState();
-    const [email, setEmail] = useState();
-    console.log(authenticationService.currentUserValue);
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [sexe, setSexe] = useState('');
+    const [dateNaissance, setDateNaissance] = useState('');
+    const [adress, setAdress] = useState('');
+    const [email, setEmail] = useState('');
+    
+    const formValidation = () => {
+        if(nom.length ==0 || !nom.trim()){
+            toast.error('le nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        if(prenom.length ==0 || !prenom.trim()){
+            toast.error('le prenom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            return false;
+        }
+        if(adress.length ==0 || !adress.trim()){
+            toast.error('adress ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            return false;
+        }
+        if(email.length ==0 || !email.trim()){
+            toast.error('le nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            return false;
+        }
+        return true;
+    }
+
     useEffect(() => {
         setNom(informations.Nom);
         setPrenom(informations.Prenom);
         setSexe(informations.Sexe);
-        setDateNaissance(informations.DateNaissance);
+        let dateMysql = informations.DateNaissance;
+        if(dateMysql){
+            let dateJS = new Date(Date.parse(dateMysql));
+            setDateNaissance(dateJS);
+        }
         setAdress(informations.Adress);
         setEmail(informations.Email);
     }, [informations]);
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if(!formValidation())
+        {
+            return false;
+        }
         const data = { Nom: nom, Prenom: prenom, Sexe: sexe, DateNaissance: dateNaissance, Adress: adress, Email: email }
         fetch('http://localhost:3000/api/utilisateur/'+authenticationService.currentUserValue.utilisateur.id, {
             method: 'PUT',
@@ -38,7 +70,6 @@ const InformationsFrom = () => {
         <div className="container checkout">
             <hr className="offset-md" />
             <form onSubmit={handleOnSubmit}>
-
                 <div className="row">
                     <div className="col-md-12">
                         <div className="row group">
@@ -80,7 +111,8 @@ const InformationsFrom = () => {
 
                         <div className="row group">
                             <div className="col-sm-4"><h2 className="h4">Date de naissance</h2></div>
-                            <div className="col-sm-8"> <input type="text" className="form-control" name="date" defaultValue={dateNaissance} placeholder="YYYY/MM/JJ"  onChange={(e) => { setDateNaissance(e.target.value) }}  /></div>
+                            
+                            <div className="col-sm-8"> <DatePicker dateFormat="yyyy/MM/dd" className="form-group  form-control" maxDate={new Date("02-29-2020")} selected={dateNaissance} onChange={(date) => { setDateNaissance(date) }}  showYearDropdown dropdownMode= "scroll"  /></div>
                         </div>
 
 
@@ -96,8 +128,7 @@ const InformationsFrom = () => {
                     <button className="btn btn-primary pull-right" type="submit">Modifier</button>
                 </div>
             </form>
-            <ScriptTag type="text/javascript" src="/assets/js/bootstrap.min.js" />
-            <ScriptTag type="text/javascript" src="/assets/js/core.js" />
+           
         </div>
     );
 }

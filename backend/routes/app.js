@@ -158,10 +158,10 @@ router.delete("/commande/:id",commande.deleteCommande);
 
 //Produits_Souhaites
 //id de utilisateur
-router.get("/produits_souhaite/:id",produits_souhaite.getProduits_Souhaites);
+router.get("/produits_souhaite/:id",[passport.authenticate('jwt',{session:false})],produits_souhaite.getProduits_Souhaites);
 //id de produit_souhaite
-router.delete("/produits_souhaite/:id",produits_souhaite.supprimerProduits_Souhaites);
-router.post("/produits_souhaite/ajouter",produits_souhaite.ajouterProduits_Souhaites);
+router.delete("/produits_souhaite/:id",[passport.authenticate('jwt',{session:false})],produits_souhaite.supprimerProduits_Souhaites);
+router.post("/produits_souhaite/ajouter",[passport.authenticate('jwt',{session:false})],produits_souhaite.ajouterProduits_Souhaites);
 
 
 //Authentifiction

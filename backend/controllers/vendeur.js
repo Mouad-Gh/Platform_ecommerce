@@ -1,6 +1,6 @@
 const db = require("../models");
 const acheteur = require("./achteur");
-
+const Utils = require('../lib/Utils');
 /** 
  * db.Vendeur.create({
         Acheteur:{

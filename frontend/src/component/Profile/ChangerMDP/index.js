@@ -2,12 +2,28 @@ import { useState } from "react";
 import { toast } from 'react-toastify';
 import {authHeader } from  '../../../helpers/auth-header'
 const ChangerMDP = () => {
-    const [mdpActuel,setMdpActuel]  = useState();
-    const [mdpNew,setMdpNew] = useState();
-    const [mdpNew2,setMdpNew2] = useState();
+    const [mdpActuel,setMdpActuel]  = useState('');
+    const [mdpNew,setMdpNew] = useState('');
+    const [mdpNew2,setMdpNew2] = useState('');
+
+    const formValidation = () => {
+        if(mdpActuel.length ==0 || !mdpActuel.trim()){
+            toast.error('mot de passe actuel ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            return false;
+        }
+        if(mdpNew.length ==0 || !mdpNew.trim()){
+            toast.error('Nouveau mot de passe ne peut pas être vide', { toastId: 2, autoClose: 6000 });
+            return false;
+        }
+        return true;
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if(!formValidation()){
+            return false;
+        }
         
         if(mdpNew2 !== mdpNew){
             toast.warning('les mots de passe ne correspondent pas', { toastId: 1, autoClose: 3000 });

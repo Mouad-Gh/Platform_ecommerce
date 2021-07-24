@@ -19,6 +19,7 @@ const TopLink = (props) => {
             <div className="toplinks">
              {currentUser && <a onClick={handleLogOut}> Se déconnecter</a>}
              {currentUser && <Link to="/Profile"><i className="ion-person"></i> {currentUser.Nom+' '+currentUser.Prenom}</Link>}
+             {currentUser && currentUser.role==='vendeur' && <Link to="/Vendeur"><i className="ion-android-cart"></i> Mon boutique</Link>}
              {!currentUser &&  <Link to="/Inscription"><i className="ion-person"></i> Inscription </Link>}
              {!currentUser && <Link to="/Login"><i className="ion-unlocked"></i> Connexion</Link>}
               <Link to="/favoris"><i className="ion-ios-heart"></i> Favoris </Link>

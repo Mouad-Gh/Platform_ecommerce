@@ -1,3 +1,5 @@
+const { authHeader } = require("../helpers/auth-header");
+
 exports.supprimerProduit_souhaite = (id) => {
     const abortCont = new AbortController();
     let url = 'http://localhost:3000/api/produits_souhaite/' + id;
@@ -5,9 +7,7 @@ exports.supprimerProduit_souhaite = (id) => {
         {
             signal: abortCont.signal,
             method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            }
+            headers: authHeader()
         }
     )
         .then(res => res.json())
@@ -32,9 +32,7 @@ exports.ajouterProduit_souhaite = (body)=>{
         {
             signal: abortCont.signal,
             method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
+            headers: authHeader(),
             body:JSON.stringify(body)
         }
     )

@@ -184,12 +184,12 @@ const Clients = () => {
                     <div className="modal-content">
                         <form onSubmit={(e) => { e.preventDefault() }}>
                             <div className="modal-header">
-                                <h4 className="modal-title">Delete Employee</h4>
+                                <h4 className="modal-title">Supprimer Client</h4>
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div className="modal-body">
-                                <p>Are you sure you want to delete these Records?</p>
-                                <p className="text-warning"><small>This action cannot be undone.</small></p>
+                                <p>Êtes-vous sûr de vouloir supprimer ce client ?</p>
+                                <p className="text-warning"><small>Cette action ne peut pas être annulée.</small></p>
                             </div>
                             <div className="modal-footer">
                                 <input type="button" className="btn btn-default" data-dismiss="modal" value="Annuler" />
@@ -201,7 +201,7 @@ const Clients = () => {
             </div>
 
 
-            <ScriptTag type="text/javascript" src="/assets/js/core.js" />
+            
 
         </>
     );
