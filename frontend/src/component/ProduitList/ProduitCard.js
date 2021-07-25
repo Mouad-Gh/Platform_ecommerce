@@ -22,7 +22,7 @@ const ProduitCard = (props) => {
         <Link to={"/produit/" + props.produit.id}><img src={props.produit.Produit_images[0].chemin_fichier} alt={props.produit.nom} /></Link>
 
         <div className="content align-center">
-          <p className="price">${props.produit.PU}</p>
+          <p className="price">{props.produit.PU} Dhs</p>
           <h2 className="h3">{props.produit.nom}</h2>
           <hr className="offset-sm" />
 

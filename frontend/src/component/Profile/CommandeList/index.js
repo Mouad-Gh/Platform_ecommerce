@@ -20,12 +20,12 @@ const CommandeList = () => {
                                     
                                     <div className="media">
                                         <div className="media-body">
-                                            <h2 className="h4 media-heading"><label>Date :</label> {cmd.date}</h2>
+                                            <h2 className="h4 media-heading"><label>Date :</label> {(new Date(Date.parse(cmd.date))).toLocaleDateString()}</h2>
                                             <h2 className="h4 media-heading"><label>Adress :</label> {cmd.adress}</h2>
 
                                         </div>
                                         <div className="controls">
-                                            <h2 className="h4 media-heading text-center"><label>Status</label> Pending</h2>
+                                            <h2 className="h4 media-heading text-center"><label>Status </label> <br />En Attente</h2>
                                         </div>
                                     </div>
                                     

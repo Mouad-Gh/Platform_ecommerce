@@ -28,6 +28,7 @@ const ProduitListBoutique=(props)=>{
                 </div>
               </div>
               <div className="col-sm-8 col-md-10 product">
+                {!produits.length && <h1 className="text-center">Vous n'avez aucun produit</h1>}
               {produits && produits.map((produit, index) => {
                 return <ProduitCard key={index} produit={produit} Produits={produits} setProduits={setProduits}  />
               }

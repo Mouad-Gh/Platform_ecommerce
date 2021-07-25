@@ -4,7 +4,7 @@ import useAxios from "../../../helpers/useAxios";
 import useFetch from "../../../helpers/useFetch";
 import ComboBox from "../ComboBox"; 
 import axios from "axios";
-
+import { toast } from 'react-toastify';
 const ProduitModification = (props) => {
     const location= useLocation();
     const  id = location.state.ProduitId;
@@ -24,6 +24,37 @@ const ProduitModification = (props) => {
     const [specifications, setSpecifications] = useState([
        
     ]);
+
+
+    
+    const formValid=()=>{
+        if(nom?.length ==0 || !nom?.trim() ){
+            toast.error('Nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            return false;
+        }
+        if(description?.length ==0 || !description?.trim() ){
+            toast.error('Description ne peut pas être vide', { toastId: 2, autoClose: 6000 });
+            return false;
+        }
+        if(PU?.length ==0 || !PU ){
+            toast.error('Prix ne peut pas être vide', { toastId: 3, autoClose: 6000 });
+            return false;
+        }
+        if(quantite?.length ==0  ){
+            toast.error('Quantite ne peut pas être vide', { toastId: 4, autoClose: 6000 });
+            return false;
+        }
+        if(specifications[0].nom.length ==0 || !specifications[0].nom.trim()){
+            toast.error('Nom de specification ne peut pas être vide', { toastId: 6, autoClose: 6000 });
+            return false;
+        }
+        if(specifications[0].valeur.length ==0 || !specifications[0].valeur.trim()){
+            toast.error('Valeur de specification ne peut pas être vide', { toastId: 7, autoClose: 6000 });
+            return false;
+        }
+        return true;
+    }
+
     useEffect(()=>{
         const list=[];
         if(produit){
@@ -62,7 +93,11 @@ const ProduitModification = (props) => {
 
     const modifier= (e)=>{
 
-        e.preventDefault()
+        e.preventDefault();
+        if(!formValid()){
+            return false;
+        }
+
         let formData = new FormData();
         console.log(specifications);
         formData.append("specifications",JSON.stringify(specifications));
@@ -88,7 +123,7 @@ const ProduitModification = (props) => {
             headers: {"Content-Type": "application/json" },
             body: JSON.stringify(data)
         }).then(()=>{
-            console.log('updated');
+            toast.success('Le produit a été modifier', { toastId: 10, autoClose: 6000 });
         }).catch(err=>console.log(err));
         // axios.put("http://localhost:3000/api/produit/"+id, JSON.stringify(data)).then(response => {
         //     console.log((response.data))

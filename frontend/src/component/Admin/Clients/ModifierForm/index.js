@@ -3,6 +3,7 @@ import useFetch from '../../../../helpers/useFetch';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
+import { toast } from "react-toastify";
 const ModifierForm = (props) => {
     
     const { data:utilisateur } = useFetch('http://localhost:3000/api/utilisateur/'+props.utilisateurId+'/info');
@@ -29,8 +30,31 @@ const ModifierForm = (props) => {
 
     const handleOnSubmit = (e)=>{
         e.preventDefault(); 
+        if(!formValidation()){
+            return false;
+        }
         const data = { Nom: nom, Prenom: prenom, Sexe: sexe, DateNaissance: dtn.toISOString().slice(0, 19).replace('T', ' '), Adress: adresse, Email: email}
         props.handleOnModifier(data);
+    }
+    const formValidation = () => {
+        if(nom.length ==0 || !nom.trim()){
+            toast.error('le nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        if(prenom.length ==0 || !prenom.trim()){
+            toast.error('le prenom ne peut pas être vide', { toastId: 2, autoClose: 6000 });
+            return false;
+        }
+        if(adresse.length ==0 || !adresse.trim()){
+            toast.error('adress ne peut pas être vide', { toastId: 4, autoClose: 6000 });
+            return false;
+        }
+        if(email.length ==0 || !email.trim()){
+            toast.error('email ne peut pas être vide', { toastId: 5, autoClose: 6000 });
+            return false;
+        }
+        return true;
     }
 
     return (

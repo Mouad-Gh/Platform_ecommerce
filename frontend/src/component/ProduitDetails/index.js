@@ -4,7 +4,7 @@ const ProduitDetails= (props)=>{
 
 
     return (
-        <div className="col-sm-7 white sm-padding">
+        <div className="col-sm-12 white sm-padding">
             <hr className="offset-sm visible-xs"/>
 
             <h2 className="h1">{props.produit}</h2>

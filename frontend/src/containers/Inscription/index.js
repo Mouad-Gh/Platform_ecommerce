@@ -12,7 +12,7 @@ const Inscription = () => {
     const [nom, setNom] = useState();//
     const [prenom, setPrenom] = useState();//
     const [sexe, setSexe] = useState('Homme');
-    const [dtn, setdtn] = useState(new Date());
+    const [dtn, setdtn] = useState(new Date('1/1/2020'));
     const [adresse, setAdress] = useState();//
     const [email, setEmail] = useState();//
     const [mdp, setMdp] = useState();
@@ -42,8 +42,12 @@ const Inscription = () => {
             toast.error('email ne peut pas être vide', { toastId: 5, autoClose: 6000 });
             return false;
         }
-        if(mdp.length ==0 || !mdp.trim()){
+        if(mdp.length ==0 || !mdp.trim() ){
             toast.error('mot de passe ne peut pas être vide', { toastId: 6, autoClose: 6000 });
+            return false;
+        }
+        if(mdp.length < 6){
+            toast.error('le mot de passe doit avoir 6 caractères ou plus', { toastId: 6, autoClose: 6000 });
             return false;
         }
         if(role==='vendeur'){
@@ -125,7 +129,7 @@ const Inscription = () => {
                                 </div>
                                 <div className="col-m-12">
                                     <label>Date De naissance</label>
-                                    <DatePicker dateFormat="yyyy/MM/dd" className="form-group  form-control" selected={dtn} onChange={(date) => { setdtn(date) }} showYearDropdown dropdownMode="scroll" /><br />
+                                    <DatePicker dateFormat="yyyy/MM/dd" className="form-group  form-control" maxDate={new Date('1/1/2020')} selected={dtn} onChange={(date) => { setdtn(date) }} showYearDropdown dropdownMode="scroll" /><br />
                                 </div>
                                 <div className="col-m-12" style={{ marginBottom: 10 }}>
                                     <label>Role</label>

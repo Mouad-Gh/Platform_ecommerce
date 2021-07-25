@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 const Glissiere = () => {
     return (
         <header>
@@ -25,8 +26,8 @@ const Glissiere = () => {
                                         <h2 className="h1 lg upp colorful blue">nouveoux  <br />ORDINATEURS</h2>
                                         <hr className="offset-md" />
                                         <hr className="offset-md" />
-                                        <a href="./store/" rel="nofollow" className="btn btn-primary btn-lg black"> Plus d'ordinateurs portables </a>
-
+                                        
+                                        <Link to="/store" rel="nofollow" className="btn btn-primary btn-lg black">Voir les produits</Link>
                                     </div>
                                 </div>
                             </div>
@@ -43,13 +44,13 @@ const Glissiere = () => {
                                 <div className="inside-content">
                                     <div className="container">
 
-                                        <h1 className="h3 colorful blue hidden-xs">Device is designed for the creative people</h1>
+                                        <h1 className="h3 colorful blue hidden-xs"></h1>
                                         <hr className="offset-sm" />
 
-                                        <h2 className="h1 lg upp colorful blue">Apple <br /> iMac 27 Retina</h2>
+                                        <h2 className="h1 lg upp colorful blue">meilleure qualité<br /> avec des prix bas</h2>
                                         <hr className="offset-md" />
                                         <hr className="offset-md" />
-                                        <a href="./store/" rel="nofollow" className="btn btn-primary btn-lg black"> View products </a>
+                                        <Link to="/store" rel="nofollow" className="btn btn-primary btn-lg black">Voir les produits</Link>
 
                                     </div>
                                 </div>
@@ -67,14 +68,13 @@ const Glissiere = () => {
                                 <div className="inside-content">
                                     <div className="container align-right">
 
-                                        <h1 className="h3 colorful blue hidden-xs">Luxury watches, business tablets and 3D touch: <br /> How Apple plans to stay ahead in mobile.</h1>
+                                        <h1 className="h3 colorful blue hidden-xs"></h1>
 
                                         <hr className="offset-sm" />
-                                        <h2 className="h1 lg upp colorful blue">Brand new day <br className="hidden-xs" /> for business</h2>
+                                        <h2 className="h1 lg upp colorful blue">marques <br className="hidden-xs" /> internationales</h2>
                                         <hr className="offset-md" />
                                         <hr className="offset-md" />
-                                        <a href="./blog/" rel="nofollow" className="btn btn-primary btn-lg black"> View article </a>
-
+                                        <Link to="/store" rel="nofollow" className="btn btn-primary btn-lg black">Voir les produits</Link>
                                     </div>
                                 </div>
                             </div>

@@ -1,14 +1,24 @@
 import { useState } from "react";
-
+import { toast } from "react-toastify";
 const AjouterForm = (props) => {
     const [nom_categorie, setNom] = useState(null);
 
+    const formValidation = () => {
+        if(nom_categorie.length ==0 || !nom_categorie.trim()){
+            toast.error('le nom de categorie ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        return true;
+    }
+
     const handleOnSubmit = (e)=>{
         e.preventDefault();
+        if(!formValidation()){
+            return false;
+        }
         const data = { nom_categorie }
         props.handleOnAjouter(data);
-        
-
     }
     return ( 
         <>

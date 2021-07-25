@@ -21,9 +21,20 @@ const Categories = () => {
     //
     const [nom_categorie,setNom_categorie]=useState(null);
 
+    const formValidation = () => {
+        if(nom_categorie.length ==0 || !nom_categorie.trim()){
+            toast.error('le nom de categorie ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        return true;
+    }
+
     const handleOnModifier=(e)=>{
         e.preventDefault();
-        console.log(id,nom_categorie);
+        if(!formValidation()){
+            return false;
+        }
         fetch("http://localhost:3000/api/categorie/"+id,{
             method: 'PUT',
             headers: {"Content-Type": "application/json" },
@@ -149,7 +160,6 @@ const Categories = () => {
                                             </div>
                                             <div className="col-sm-6">
                                                 <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="ion-ios-plus-outline"></i> <span style={{ marginTop: 6 }}>ajouter une nouvelle categorie</span></a>
-                                                <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="ion-ios-trash-outline"></i> <span style={{ marginTop: 6 }}>Supprimer</span></a>
                                                 <a href="#FindUtilisateurModal" className="btn btn-warning" data-toggle="modal"><i className="ion-ios-search"></i> <span style={{ marginTop: 6 }}>Rechercher</span></a>
                                             </div>
                                         </div>
@@ -158,10 +168,7 @@ const Categories = () => {
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <span className="custom-checkbox">
-                                                        <input type="checkbox" id="selectAll" />
-                                                        <label for="selectAll"></label>
-                                                    </span>
+                                                    
                                                 </th>
                                                 <th>id</th>
                                                 <th>nom de categorie</th>
@@ -176,10 +183,7 @@ const Categories = () => {
                                                 }
                                                 return <tr key={categorie.id}>
                                                     <td>
-                                                        <span className="custom-checkbox">
-                                                            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                                                            <label htmlFor="checkbox1"></label>
-                                                        </span>
+                                                        
                                                     </td>
                                                     <td>{categorie.id}</td>
                                                     <td>{categorie.nom_categorie}</td>
@@ -226,7 +230,7 @@ const Categories = () => {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancel" />
+                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Annuler" />
                                 <input type="submit" className="btn btn-info" value="Save" />
                             </div>
                         </form>
@@ -244,11 +248,11 @@ const Categories = () => {
                             </div>
                             <div className="modal-body">
                                 <p>êtes vous sûr ?</p>
-                                <p className="text-warning"><small>Cette action cannot be undone.</small></p>
+                                <p className="text-warning"><small>cette action ne peut pas être annulée.</small></p>
                             </div>
                             <div className="modal-footer">
-                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancel" />
-                                <input type="submit" className="btn btn-danger" value="Delete" />
+                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Annuler" />
+                                <input type="submit" className="btn btn-danger" value="Supprimer" />
                             </div>
                         </form>
                     </div>

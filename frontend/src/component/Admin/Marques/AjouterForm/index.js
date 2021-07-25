@@ -1,11 +1,28 @@
 import { useState } from "react";
-
+import { toast } from "react-toastify";
 const AjouterForm = (props) => {
     const [nom, setNom] = useState(null);
     const [pays, setPays] = useState(null);
     
+    const formValidation = () => {
+        if(nom.length ==0 || !nom.trim()){
+            toast.error('le nom de marque ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        if(pays.length ==0 || !pays.trim()){
+            toast.error('pays de marque ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        return true;
+    }
+
     const handleOnSubmit = (e)=>{
         e.preventDefault();
+        if(!formValidation()){
+            return false;
+        }
         const data = { nom,pays }
         props.handleOnAjouter(data);
         
@@ -34,7 +51,7 @@ const AjouterForm = (props) => {
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" defaultValue="Annuler" />
-                                <input type="submit" class="btn btn-success" defaultValue="Ajouter" />
+                                <input type="submit" class="btn btn-success" value="Ajouter" />
                             </div>
                         </form>
                     </div>

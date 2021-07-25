@@ -37,8 +37,6 @@ const Navbar = () => {
                         </ul>
                     </div>
 
-
-                    <SearchBox />
                 </div>
             </nav>
     );

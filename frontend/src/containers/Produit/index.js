@@ -28,13 +28,13 @@ const Produit= (props)=>{
                 <div className="row">
                 { produit && (<ProduitSlider images={produit.Produit_images} produit={produit.nom} />)}
                 { produit && <ProduitInfo produit={produit} handleAjouterPanier={props.handleAjouterPanier} />}
-                
+                <ProduitReaction />
                 </div>
                 <hr className="offset-sm hidden-xs"/>
 
                 <div className="row">
                 { produit && <ProduitDetails specifications={produit.Produit_specifications} produit={produit.nom} desc={produit.description} />}
-                <ProduitReaction />
+                
                 </div>
             </div>
             

@@ -26,7 +26,7 @@ const ProduitPanier = (props) => {
                             </div>
                             {/* <!-- /input-group --> */}
 
-                            <button onClick={()=>{props.handleSupprimerPanier(id)}}> <i className="ion-trash-b"></i> Remove </button>
+                            
                         </div>
                     </div>
      );

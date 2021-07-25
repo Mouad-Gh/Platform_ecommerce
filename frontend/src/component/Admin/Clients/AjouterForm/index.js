@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
 const AjouterForm = (props) => {
@@ -17,6 +18,9 @@ const AjouterForm = (props) => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+        if(!formValidation()){
+            return false;
+        }
         const data = {
             Nom: nom, Prenom: prenom, Sexe: sexe,
             DateNaissance: dtn.toISOString().slice(0, 19).replace('T', ' '), Adress: adresse,
@@ -24,6 +28,42 @@ const AjouterForm = (props) => {
         };
         props.handleOnAjouter(data, role);
     }
+
+    const formValidation = () => {
+        if(nom.length ==0 || !nom.trim()){
+            toast.error('le nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            
+            return false;
+        }
+        if(prenom.length ==0 || !prenom.trim()){
+            toast.error('le prenom ne peut pas être vide', { toastId: 2, autoClose: 6000 });
+            return false;
+        }
+        if(adresse.length ==0 || !adresse.trim()){
+            toast.error('adress ne peut pas être vide', { toastId: 4, autoClose: 6000 });
+            return false;
+        }
+        if(email.length ==0 || !email.trim()){
+            toast.error('email ne peut pas être vide', { toastId: 5, autoClose: 6000 });
+            return false;
+        }
+        if(role==='vendeur'){
+            if(nomDeBoutique.length ==0 || !nomDeBoutique.trim()){
+                toast.error('nom de boutique ne peut pas être vide', { toastId: 7, autoClose: 6000 });
+                return false;
+            }
+        }
+        if(mdp.length ==0 || !mdp.trim() ){
+            toast.error('mot de passe ne peut pas être vide', { toastId: 6, autoClose: 6000 });
+            return false;
+        }
+        if(mdp.length < 6){
+            toast.error('le mot de passe doit avoir 6 caractères ou plus', { toastId: 6, autoClose: 6000 });
+            return false;
+        }
+        return true;
+    }
+
     return (
         <>
             <div id="addEmployeeModal" className="modal fade">

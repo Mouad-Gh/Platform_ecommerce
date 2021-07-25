@@ -42,7 +42,7 @@ const CommandeForm = (props) => {
         if(!formValidation()){
             return false;
         }
-        const commande = { adress, total, AcheteurId: 2, produits: produits, date: '2020/1/1' };
+        const commande = { adress, total, AcheteurId: 2, produits: produits, date: '2021/7/25' };
         console.log('here', JSON.stringify(commande));
         fetch('http://localhost:3000/api/commande/ajouter', {
             method: 'POST',

@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const ProduitAjout = (props) => {
     const location= useLocation();
-    const  id = location.state.BoutiqueId;
+    const  id = 1;
     const {data:categories}=useFetch('http://localhost:3000/api/categorie/tous');
     const {data:marques}=useFetch('http://localhost:3000/api/marque/tous');
     
@@ -51,12 +51,41 @@ const ProduitAjout = (props) => {
         console.log(specifications);
     }
 
+    const formValid=()=>{
+        if(nom?.length ==0 || !nom?.trim() ){
+            toast.error('Nom ne peut pas être vide', { toastId: 1, autoClose: 6000 });
+            return false;
+        }
+        if(description?.length ==0 || !description?.trim() ){
+            toast.error('Description ne peut pas être vide', { toastId: 2, autoClose: 6000 });
+            return false;
+        }
+        if(PU?.length ==0 || !PU?.trim() ){
+            toast.error('Prix ne peut pas être vide', { toastId: 3, autoClose: 6000 });
+            return false;
+        }
+        if(quantite?.length ==0 || !quantite?.trim() ){
+            toast.error('Quantite ne peut pas être vide', { toastId: 4, autoClose: 6000 });
+            return false;
+        }
+        if(specifications[0].nom.length ==0 || !specifications[0].nom.trim()){
+            toast.error('Nom de specification ne peut pas être vide', { toastId: 6, autoClose: 6000 });
+            return false;
+        }
+        if(specifications[0].valeur.length ==0 || !specifications[0].valeur.trim()){
+            toast.error('Valeur de specification ne peut pas être vide', { toastId: 7, autoClose: 6000 });
+            return false;
+        }
+        return true;
+    }
 
     const ajouter= (e)=>{
+        e.preventDefault();
+        if(!formValid()){
+            return false;
+        }
         
-        e.preventDefault()
         let formData = new FormData();
-        console.log(quantite);
         formData.append("specifications",JSON.stringify(specifications));
         formData.append("nom",nom);
         formData.append("description",description);
@@ -131,7 +160,7 @@ const ProduitAjout = (props) => {
                     <div className="col-sm-5 no-padding-xs">
                         <div className="form group">
                             <h2 className="h4">les Images </h2>
-                            <input className="form-control form-control-lg mb-3" type="file" multiple name="imagesArray"
+                            <input className="form-control form-control-lg mb-3" type="file" required multiple name="imagesArray"
                              onChange={e => setUploadedImages(e.target.files)} />
                         </div>
                         <div className="form group" >
