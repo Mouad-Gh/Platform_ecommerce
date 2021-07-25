@@ -197,7 +197,7 @@ const Categories = () => {
                                         </tbody>
                                     </table>
                                     <div className="clearfix">
-                                        <div className="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                                        
                                         <ul className="pagination">
                                             <li className="page-item"  ><button disabled={CURRENT_PAGE===1?true:false}  onClick={()=>setCurrentPage(CURRENT_PAGE-1)}>Previous</button></li>
                                             {pages.map((pageIndex)=>(

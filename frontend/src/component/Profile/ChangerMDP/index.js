@@ -15,7 +15,7 @@ const ChangerMDP = () => {
             toast.error('Nouveau mot de passe ne peut pas être vide', { toastId: 2, autoClose: 6000 });
             return false;
         }
-        if(mdpNew.length > 6){
+        if(mdpNew.length < 6){
             toast.error('le mot de passe doit avoir 8 caractères ou plus', { toastId: 2, autoClose: 6000 });
             return false;
         }

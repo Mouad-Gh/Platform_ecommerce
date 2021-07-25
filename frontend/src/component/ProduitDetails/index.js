@@ -13,7 +13,7 @@ const ProduitDetails= (props)=>{
             <p> {props.desc} </p>
             <br/>
 
-             <h2>Product specifications</h2>
+             <h2>Produit specifications</h2>
              <br/>
 
              { props.specifications &&  props.specifications.map((specification)=>{

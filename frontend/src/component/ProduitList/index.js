@@ -8,7 +8,7 @@ const ProduitList=(props)=>{
     return (
         <section className="products">
       <div className="container">
-        <h2 className="upp align-center-xs"> Related products </h2>
+        <h2 className="upp align-center-xs"> Produits connexes </h2>
         <hr className="offset-lg"/>
 
         <div className="row">
